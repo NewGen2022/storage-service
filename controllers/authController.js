@@ -1,14 +1,40 @@
 const { validationResult } = require('express-validator');
 const { createUser } = require('../db/queries');
 const hashPassword = require('../public/js/hashPassword');
+const passport = require('../config/passport');
 
 const logInRenderForm = (req, res) => {
-    res.status(200).render('login');
+    res.status(200).render('login', { errors: req.flash('error') });
 };
 
-const logOut = (req, res) => {
-    console.log('LOGOUT');
-    return;
+const logIn = (req, res, next) => {
+    passport.authenticate('local', (err, user, info) => {
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+            req.flash('error', info.message);
+            return res.render('login', {
+                errors: req.flash('error'),
+                prevUsername: req.body.username || '',
+            });
+        }
+        req.logIn(user, (err) => {
+            if (err) {
+                return next(err);
+            }
+            return res.redirect('/');
+        });
+    })(req, res, next);
+};
+
+const logOut = (req, res, next) => {
+    req.logout((err) => {
+        if (err) {
+            return next(err);
+        }
+        res.redirect('/login');
+    });
 };
 
 const signUpRenderForm = (req, res) => {
@@ -37,4 +63,4 @@ const signUp = async (req, res) => {
     }
 };
 
-module.exports = { logInRenderForm, logOut, signUpRenderForm, signUp };
+module.exports = { logInRenderForm, logIn, logOut, signUpRenderForm, signUp };
