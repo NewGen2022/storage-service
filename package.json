@@ -15,8 +15,10 @@
         "prisma": "^5.19.1"
     },
     "dependencies": {
+        "@prisma/client": "^5.19.1",
         "bcryptjs": "^2.4.3",
         "dotenv": "^16.4.5",
+        "ejs-mate": "^4.0.0",
         "express": "^4.21.0",
         "express-session": "^1.18.0",
         "express-validator": "^7.2.0",
