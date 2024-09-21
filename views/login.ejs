@@ -1,0 +1,17 @@
+<% layout('layout') %>
+
+<form id="login" class="form" action="/login" method="POST">
+    <div id="form-header">Log In</div>
+
+    <label for="username">Username</label>
+    <input type="text" name="username" id="username" />
+
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" />
+
+    <button type="submit">Log In</button>
+
+    <div class="have-an-account">
+        Do not have an account? <a href="/signup">Sign Up</a>
+    </div>
+</form>
