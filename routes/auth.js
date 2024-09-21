@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {
     logInRenderForm,
+    logIn,
     logOut,
     signUpRenderForm,
     signUp,
@@ -9,6 +10,10 @@ const {
 const { validateSignUp } = require('../middleware/validation');
 
 // ROUTES for - log in/out
+router.get('/login', logInRenderForm);
+router.get('/logout', logOut);
+
+router.post('/login', logIn);
 
 // ROUTES for - sign up
 router.get('/signup', signUpRenderForm);
