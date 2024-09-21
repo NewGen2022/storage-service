@@ -1,0 +1,34 @@
+<% layout('layout') %>
+
+<form id="signup" class="form" action="/signup" method="POST">
+    <% if (errors && errors.length > 0) { %>
+    <div id="errors">
+        <% errors.forEach(error => { %>
+        <p><%= error.msg %></p>
+        <% }) %>
+    </div>
+
+    <% } %>
+
+    <div id="form-header">Sign Up</div>
+
+    <label for="username">Username</label>
+    <input
+        type="text"
+        name="username"
+        id="username"
+        value="<%= prevData.username || '' %>"
+    />
+
+    <label for="password_1">Password</label>
+    <input type="password" name="password_1" id="password_1" />
+
+    <label for="password_2">Confirm password</label>
+    <input type="password" name="password_2" id="password_2" />
+
+    <button type="submit">Sign Up</button>
+
+    <div id="have-an-account">
+        Already have an account? <a href="/login">Log In</a>
+    </div>
+</form>
