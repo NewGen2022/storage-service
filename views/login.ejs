@@ -1,13 +1,27 @@
 <% layout('layout') %>
 
 <form id="login" class="form" action="/login" method="POST">
+    <% if (errors && errors.length > 0) { %>
+    <div id="errors">
+        <% errors.forEach(error => { %>
+        <p><%= error %></p>
+        <% }) %>
+    </div>
+    <% } %>
+
     <div id="form-header">Log In</div>
 
     <label for="username">Username</label>
-    <input type="text" name="username" id="username" />
+    <input
+        type="text"
+        name="username"
+        id="username"
+        value="<%= typeof prevUsername !== 'undefined' ? prevUsername : '' %>"
+        required
+    />
 
     <label for="password">Password</label>
-    <input type="password" name="password" id="password" />
+    <input type="password" name="password" id="password" required />
 
     <button type="submit">Log In</button>
 
