@@ -8,6 +8,7 @@ const prisma = require('./db/prismaClient');
 const passport = require('./config/passport');
 const flash = require('connect-flash');
 const authRouter = require('./routes/auth');
+const indexRouter = require('./routes/index');
 
 const PORT = process.env.PORT;
 const app = express();
@@ -45,7 +46,14 @@ app.use(passport.session());
 // Flash middleware
 app.use(flash());
 
+// set currentUser according to login user
+app.use((req, res, next) => {
+    res.locals.currentUser = req.user;
+    next();
+});
+
 // routes
+app.use('/', indexRouter);
 app.use('/', authRouter);
 
 app.listen(PORT, () => {
