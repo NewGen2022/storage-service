@@ -7,7 +7,7 @@ const {
     signUpRenderForm,
     signUp,
 } = require('../controllers/authController');
-const { validateSignUp } = require('../middleware/validation');
+const { validateSignUp } = require('../middleware/validationMidware');
 
 // ROUTES for - log in/out
 router.get('/login', logInRenderForm);
