@@ -58,20 +58,21 @@
     cursor: pointer;
 }
 
-#header-login-signup {
+#header-login-signup-logout {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 10px;
 }
 
-#header-login-signup a {
+#header-login-signup-logout a {
     text-decoration: none;
     color: #e6e6e6;
 }
 
 #header-login,
-#header-signup {
+#header-signup,
+#header-logout {
     display: flex;
     align-items: center;
     gap: 5px;
@@ -83,6 +84,9 @@
 #header-login img,
 #header-signup img {
     height: 20px;
+}
+#header-logout img {
+    height: 18px;
 }
 
 #header-login {
@@ -102,4 +106,21 @@
     border-color: rgb(30, 255, 0);
     background-color: rgb(12, 106, 0);
 }
+
+#header-logout {
+    border-color: rgb(191, 27, 27);
+    background-color: rgb(70, 0, 0);
+}
+#header-logout:hover {
+    border-color: rgb(255, 0, 0);
+    background-color: rgb(106, 0, 0);
+}
 /* RIGHT PART OF HEADER */
+
+@media (max-width: 705px) {
+    #header {
+        flex-direction: column;
+        gap: 20px;
+        padding-bottom: 40px;
+    }
+}
