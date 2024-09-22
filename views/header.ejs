@@ -6,10 +6,19 @@
 
     <div id="header-right-part">
         <div id="header-login-theme-status">
-            <div id="header-login-status">Not logged in |</div>
+            <div id="header-login-status">
+                <% if (currentUser) { %> Logged in as <%= currentUser.username
+                %> | <% } else { %> Not logged in | <% } %>
+            </div>
             <img id="header-theme-status" src="/images/sun.png" />
         </div>
-        <div id="header-login-signup">
+        <div id="header-login-signup-logout">
+            <% if(currentUser) { %>
+            <a href="/logout" id="header-logout">
+                <img src="/images/logout.png" />
+                <div id="header-login-link">Log out</div>
+            </a>
+            <% } else { %>
             <a href="/login" id="header-login">
                 <img src="/images/login.png" />
                 <div id="header-login-link">Log in</div>
@@ -18,6 +27,7 @@
                 <img src="/images/add-user.png" />
                 <div id="header-signup-link">Sign up</div>
             </a>
+            <% } %>
         </div>
     </div>
 </div>
