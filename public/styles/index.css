@@ -1,16 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
+:root {
+    color: var(--light-gray);
+    background-color: #141419;
+    min-height: 100%;
+    --light-blue: #00aeff;
+    --teal-blue: #0076ac;
+    --light-gray: #e6e6e6;
+    --charcoal-gray: #242424;
+    --dark-gray: #3c3c3c;
+    --dark-wine-red: #58151c;
+    --red: #ff0000;
+    --soft-light-pink: #f8d7da;
+}
+
 * {
     padding: 0;
     margin: 0;
     font-family: 'Outfit', 'Trebuchet MS', 'Lucida Sans Unicode',
         'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-}
-
-html {
-    color: #e6e6e6;
-    background-color: #141419;
-    min-height: 100%;
 }
 
 body {
