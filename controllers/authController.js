@@ -23,7 +23,7 @@ const logIn = (req, res, next) => {
             if (err) {
                 return next(err);
             }
-            return res.redirect('/');
+            return res.redirect('/directory');
         });
     })(req, res, next);
 };
