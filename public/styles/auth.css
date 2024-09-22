@@ -2,7 +2,7 @@ form {
     display: flex;
     flex-direction: column;
     margin: 5vh auto;
-    width: 70%;
+    width: 50%;
     min-width: 270px;
 }
 
@@ -24,6 +24,11 @@ form input {
     padding: 7px;
     padding-left: 12px;
     font-size: 1em;
+    transition: box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+form input:focus {
+    border-color: #00aeff;
+    box-shadow: 0 0 10px #0076ac;
 }
 
 form button {
@@ -36,6 +41,7 @@ form button {
     border: 2px solid grey;
     border-radius: 5px;
     color: #e6e6e6;
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
 }
 form button:hover {
     border-color: #00aeff;
