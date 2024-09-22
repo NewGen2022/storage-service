@@ -1,6 +1,8 @@
 <% layout('layout') %>
 
 <form id="login" class="form" action="/login" method="POST">
+    <div id="form-header">Log In</div>
+
     <% if (errors && errors.length > 0) { %>
     <div id="errors">
         <% errors.forEach(error => { %>
@@ -8,8 +10,6 @@
         <% }) %>
     </div>
     <% } %>
-
-    <div id="form-header">Log In</div>
 
     <label for="username">Username</label>
     <input
