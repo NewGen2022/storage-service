@@ -19,16 +19,16 @@ form input {
     outline: none;
     border: 1px solid grey;
     border-radius: 5px;
-    color: #e6e6e6;
-    background-color: #242424;
+    color: var(--light-gray);
+    background-color: var(--charcoal-gray);
     padding: 7px;
     padding-left: 12px;
     font-size: 1em;
     transition: box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out;
 }
 form input:focus {
-    border-color: #00aeff;
-    box-shadow: 0 0 10px #0076ac;
+    border-color: var(--light-blue);
+    box-shadow: 0 0 10px var(--teal-blue);
 }
 
 form button {
@@ -37,28 +37,28 @@ form button {
     font-size: 0.9em;
     margin: 30px 0 10px 0;
     padding: 7px 50px;
-    background-color: #3c3c3c;
+    background-color: var(--dark-gray);
     border: 2px solid grey;
     border-radius: 5px;
-    color: #e6e6e6;
+    color: var(--light-gray);
     transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
 }
 form button:hover {
-    border-color: #00aeff;
-    background-color: #0076ac;
+    border-color: var(--light-blue);
+    background-color: var(--teal-blue);
 }
 
 #errors {
-    background-color: #58151c;
-    border: 1px solid red;
+    background-color: var(--dark-wine-red);
+    border: 1px solid var(--red);
     padding: 7px;
     border-radius: 5px;
     margin-top: 2em;
-    color: #f8d7da;
+    color: var(--soft-light-pink);
 }
 #errors p::before {
     content: '•';
-    color: #f8d7da;
+    color: var(--soft-light-pink);
     font-size: 20px;
     margin-right: 10px;
     vertical-align: middle;
