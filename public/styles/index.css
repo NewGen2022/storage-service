@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Outfit', 'Trebuchet MS', 'Lucida Sans Unicode',
+        'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+html {
+    color: #e6e6e6;
+    background-color: #141419;
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    font-size: 18px;
+}
+
+button {
+    cursor: pointer;
+}
