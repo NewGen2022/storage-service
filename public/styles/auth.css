@@ -27,19 +27,19 @@ form input {
 }
 
 form button {
+    outline: none;
     align-self: flex-start;
     font-size: 0.9em;
     margin: 30px 0 10px 0;
     padding: 7px 50px;
     background-color: #3c3c3c;
-    outline: none;
-    border: 1px solid grey;
+    border: 2px solid grey;
     border-radius: 5px;
     color: #e6e6e6;
 }
 form button:hover {
-    border: 1px solid rgb(208, 208, 208);
-    background-color: #616161;
+    border-color: #00aeff;
+    background-color: #0076ac;
 }
 
 #errors {
