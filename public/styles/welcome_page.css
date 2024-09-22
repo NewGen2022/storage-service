@@ -1,0 +1,14 @@
+#welcome-info {
+    display: flex;
+    flex-direction: column;
+    margin: 2vh auto;
+    width: 50vw;
+    border-bottom: 2px solid grey;
+    padding-bottom: 15px;
+}
+
+#welcome-header {
+    font-size: 2em;
+    font-weight: 600;
+    margin: 20px 0;
+}
