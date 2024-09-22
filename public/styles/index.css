@@ -10,10 +10,12 @@
 html {
     color: #e6e6e6;
     background-color: #141419;
-    height: 100%;
+    min-height: 100%;
 }
 
 body {
+    display: flex;
+    flex-direction: column;
     height: 100%;
     font-size: 18px;
 }
