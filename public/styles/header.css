@@ -3,7 +3,7 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    height: 10vh;
+    min-height: 10vh;
     padding: 30px 0;
     border-bottom: 2px solid #434355;
 }
@@ -22,6 +22,7 @@
     text-decoration: none;
     color: #e6e6e6;
     opacity: 0.8;
+    transition: opacity 0.2s ease-in-out;
 }
 #header-left-part:hover {
     opacity: 1;
@@ -52,6 +53,7 @@
 }
 #header-login-theme-status img {
     opacity: 0.7;
+    transition: opacity 0.1s ease-in-out;
 }
 #header-login-theme-status img:hover {
     opacity: 1;
@@ -89,6 +91,12 @@
     height: 18px;
 }
 
+#header-login,
+#header-signup,
+#header-logout {
+    transition: background-color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+}
+
 #header-login {
     border-color: grey;
     background-color: rgb(79, 79, 79);
@@ -121,6 +129,5 @@
     #header {
         flex-direction: column;
         gap: 20px;
-        padding-bottom: 40px;
     }
 }
