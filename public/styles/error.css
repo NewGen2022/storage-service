@@ -12,8 +12,8 @@
 #err-header {
     font-size: 5em;
     font-weight: 900;
-    color: rgb(255, 7, 58);
-    text-shadow: 0 0 5px #ff073a, 0 0 10px #ff073a;
+    color: var(--red-pink);
+    text-shadow: 0 0 5px var(--red-pink), 0 0 10px var(--red-pink);
 }
 
 #err-msg {
@@ -25,14 +25,14 @@
     text-decoration: none;
     padding: 10px 40px;
     color: white;
-    border: 1px solid rgb(255, 7, 58);
-    box-shadow: 0 0 5px #ff073a, 0 0 10px #ff073a;
+    border: 1px solid var(--red-pink);
+    box-shadow: 0 0 5px var(--red-pink), 0 0 10px var(--red-pink);
     border-radius: 5px;
     margin: 0 50px;
     min-width: 100px;
 }
 #err-container a:hover {
-    background-color: rgb(255, 7, 58);
+    background-color: var(--red-pink);
     transform: scale(1.1);
     font-weight: 600;
 }
