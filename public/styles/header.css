@@ -1,11 +1,11 @@
 #header {
-    background-color: #23232c;
+    background-color: var(--dark-blue-gray);
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     min-height: 10vh;
     padding: 30px 0;
-    border-bottom: 2px solid #434355;
+    border-bottom: 2px solid var(--medium-dark-blue-gray);
 }
 
 #header-title {
@@ -50,14 +50,6 @@
     flex-direction: row;
     align-items: center;
     gap: 5px;
-}
-#header-login-theme-status img {
-    opacity: 0.7;
-    transition: opacity 0.1s ease-in-out;
-}
-#header-login-theme-status img:hover {
-    opacity: 1;
-    cursor: pointer;
 }
 
 #header-login-signup-logout {
