@@ -20,7 +20,7 @@
     align-items: center;
     gap: 10px;
     text-decoration: none;
-    color: #e6e6e6;
+    color: var(--light-gray);
     opacity: 0.8;
     transition: opacity 0.2s ease-in-out;
 }
@@ -39,7 +39,7 @@
     align-items: center;
     gap: 15px;
     text-decoration: none;
-    color: #e6e6e6;
+    color: var(--light-gray);
 }
 #header-right-part img {
     height: 30px;
@@ -69,7 +69,7 @@
 
 #header-login-signup-logout a {
     text-decoration: none;
-    color: #e6e6e6;
+    color: var(--light-gray);
 }
 
 #header-login,
