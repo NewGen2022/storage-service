@@ -13,6 +13,8 @@
     --red: #ff0000;
     --soft-light-pink: #f8d7da;
     --red-pink: #ff073a;
+    --dark-blue-gray: #23232c;
+    --medium-dark-blue-gray: #434355;
 }
 
 * {
@@ -25,7 +27,7 @@
 body {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    min-height: 100vh;
     font-size: 18px;
 }
 
@@ -35,4 +37,9 @@ button {
 
 button:active {
     transform: scale(0.95);
+}
+
+#container {
+    min-height: 100vh;
+    display: flex;
 }
