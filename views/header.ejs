@@ -8,9 +8,8 @@
         <div id="header-login-theme-status">
             <div id="header-login-status">
                 <% if (currentUser) { %> Logged in as <%= currentUser.username
-                %> | <% } else { %> Not logged in | <% } %>
+                %> <% } else { %> Not logged in <% } %>
             </div>
-            <img id="header-theme-status" src="/images/sun.png" />
         </div>
         <div id="header-login-signup-logout">
             <% if(currentUser) { %>
