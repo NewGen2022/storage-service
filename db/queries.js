@@ -9,7 +9,7 @@ const createUser = async (username, password) => {
             },
         });
 
-        await createDirectory(username, user.id, true);
+        await createDirectory(username, user.id);
 
         return user;
     } catch (error) {
@@ -18,19 +18,13 @@ const createUser = async (username, password) => {
     }
 };
 
-const createDirectory = async (
-    name,
-    userId,
-    isRoot = false,
-    parentId = null
-) => {
+const createDirectory = async (name, userId, parentId = null) => {
     try {
         const directory = await prisma.directory.create({
             data: {
                 name: name,
                 userId: userId,
                 parentId: parentId,
-                isRoot: isRoot,
             },
         });
 
