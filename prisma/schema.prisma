@@ -32,6 +32,9 @@ model Directory {
     parent    Directory?  @relation("DirectoryChildren", fields: [parentId], references: [id]) // Link to parent folder
     parentId  String?
     children  Directory[] @relation("DirectoryChildren")
+    isRoot    Boolean     @default(false)
+
+    @@unique([userId, isRoot], name: "single_root_per_user")
 }
 
 model File {
