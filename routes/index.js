@@ -3,7 +3,11 @@ const router = express.Router();
 const { isAuth } = require('../middleware/authMidware');
 
 router.get('/', (req, res) => {
-    res.render('welcome_page');
+    if (req.isAuthenticated()) {
+        res.redirect('/directory');
+    } else {
+        res.render('welcome_page');
+    }
 });
 
 router.get('/directory', isAuth, (req, res) => {
