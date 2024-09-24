@@ -15,10 +15,32 @@ model Session {
 }
 
 model User {
-    id       String @id @default(uuid())
-    username String @unique
-    password String
-    role     Role   @default(BASIC)
+    id          String      @id @default(uuid())
+    username    String      @unique
+    password    String
+    role        Role        @default(BASIC)
+    directories Directory[]
+}
+
+model Directory {
+    id        String      @id @default(uuid())
+    name      String
+    createdAt DateTime    @default(now())
+    user      User        @relation(fields: [userId], references: [id])
+    userId    String
+    files     File[]
+    parent    Directory?  @relation("DirectoryChildren", fields: [parentId], references: [id]) // Link to parent folder
+    parentId  String?
+    children  Directory[] @relation("DirectoryChildren")
+}
+
+model File {
+    id          String    @id @default(uuid())
+    name        String
+    size        Float
+    createdAt   DateTime  @default(now())
+    folder      Directory @relation(fields: [directoryId], references: [id])
+    directoryId String
 }
 
 enum Role {
