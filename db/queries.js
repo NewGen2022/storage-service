@@ -9,7 +9,7 @@ const createUser = async (username, password) => {
             },
         });
 
-        await createDirectory(username, user.id);
+        await createDirectory(username, user.id, true);
 
         return user;
     } catch (error) {
@@ -18,13 +18,19 @@ const createUser = async (username, password) => {
     }
 };
 
-const createDirectory = async (name, userId, parentId = null) => {
+const createDirectory = async (
+    name,
+    userId,
+    isRoot = false,
+    parentId = null
+) => {
     try {
         const directory = await prisma.directory.create({
             data: {
                 name: name,
                 userId: userId,
                 parentId: parentId,
+                isRoot: isRoot,
             },
         });
 
@@ -35,4 +41,14 @@ const createDirectory = async (name, userId, parentId = null) => {
     }
 };
 
-module.exports = { createUser, createDirectory };
+const getAllDirectories = async () => {
+    try {
+        const directories = prisma.directory.findMany();
+        return directories;
+    } catch (err) {
+        console.error('Error fetching directories:', error);
+        throw error;
+    }
+};
+
+module.exports = { createUser, createDirectory, getAllDirectories };
