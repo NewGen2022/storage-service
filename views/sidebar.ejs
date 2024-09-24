@@ -59,5 +59,11 @@
                 New File
             </button>
         </li>
+
+        <% dirs.forEach(dir => { %>
+        <li>
+            <a href="/directory/<%= dir.id %>"><%= dir.name %></a>
+        </li>
+        <% }) %>
     </ul>
 </nav>
