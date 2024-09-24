@@ -1,17 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const { isAuth } = require('../middleware/authMidware');
+const { welcomePage, indexRender } = require('../controllers/indexController');
 
-router.get('/', (req, res) => {
-    if (req.isAuthenticated()) {
-        res.redirect('/directory');
-    } else {
-        res.render('welcome_page');
-    }
-});
+router.get('/', welcomePage);
 
-router.get('/directory', isAuth, (req, res) => {
-    res.render('index', { user: req.user });
-});
+router.get('/directory', isAuth, indexRender);
 
 module.exports = router;
