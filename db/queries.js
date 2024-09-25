@@ -1,5 +1,6 @@
 const prisma = require('../db/prismaClient');
 
+// CREATE QUERIES
 const createUser = async (username, password) => {
     try {
         const user = await prisma.user.create({
@@ -23,8 +24,8 @@ const createDirectory = async (name, userId, parentId = null) => {
         const directory = await prisma.directory.create({
             data: {
                 name: name,
-                userId: userId,
-                parentId: parentId,
+                user: { connect: { id: userId } },
+                parent: parentId ? { connect: { id: parentId } } : undefined,
             },
         });
 
@@ -35,11 +36,32 @@ const createDirectory = async (name, userId, parentId = null) => {
     }
 };
 
+const createFile = async (name, parentId = null) => {
+    try {
+        const file = await prisma.file.create({
+            data: {
+                name: name,
+                size: 0,
+                directory: { connect: { id: parentId } },
+            },
+        });
+
+        return file;
+    } catch (err) {
+        console.error('Error creating file:', err);
+        throw err;
+    }
+};
+
+// GET QUERIES
 const getAllUserDirectories = async (userId) => {
     try {
         const directories = await prisma.directory.findMany({
             where: { userId: userId },
-            include: { files: true },
+            include: { files: true, children: { include: { files: true } } },
+            orderBy: {
+                createdAt: 'desc',
+            },
         });
         return directories;
     } catch (err) {
@@ -60,9 +82,19 @@ const getRootDir = async (userId) => {
     }
 };
 
+//
+const directoryExists = async (directoryId) => {
+    const directory = await prisma.directory.findUnique({
+        where: { id: directoryId },
+    });
+    return directory !== null; // Returns true if the directory exists
+};
+
 module.exports = {
     createUser,
     createDirectory,
+    createFile,
     getAllUserDirectories,
     getRootDir,
+    directoryExists,
 };
