@@ -25,6 +25,7 @@ model User {
 model Directory {
     id        String      @id @default(uuid())
     name      String
+    type      DocTypes    @default(DIRECTORY)
     createdAt DateTime    @default(now())
     user      User        @relation(fields: [userId], references: [id])
     userId    String
@@ -32,21 +33,28 @@ model Directory {
     parent    Directory?  @relation("DirectoryChildren", fields: [parentId], references: [id]) // Link to parent folder
     parentId  String?
     children  Directory[] @relation("DirectoryChildren")
-    isRoot    Boolean     @default(false)
 
-    @@unique([userId, isRoot], name: "single_root_per_user")
+    @@unique([parentId, name], name: "unique_name_in_parent_dir")
 }
 
 model File {
     id          String    @id @default(uuid())
     name        String
     size        Float
+    type        DocTypes  @default(FILE)
     createdAt   DateTime  @default(now())
     folder      Directory @relation(fields: [directoryId], references: [id])
     directoryId String
+
+    @@unique([directoryId, name], name: "unique_name_in_directory")
 }
 
 enum Role {
     BASIC
     ADMIN
+}
+
+enum DocTypes {
+    FILE
+    DIRECTORY
 }
