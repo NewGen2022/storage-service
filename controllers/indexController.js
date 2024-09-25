@@ -4,6 +4,7 @@ const {
     createFile,
     directoryExists,
 } = require('../db/queries');
+const { formatDate } = require('../public/js/timeFormatting');
 
 const welcomePage = (req, res) => {
     if (req.isAuthenticated()) {
@@ -22,13 +23,12 @@ const indexRender = async (req, res) => {
         const currentDir =
             dirs.find((directory) => directory.id === currentDirId) || null;
 
-        console.log(currentDir);
-
         res.render('index', {
             user: req.user,
             dirs: dirs,
             currentDirId: currentDirId,
             currentDir: currentDir,
+            formatDate: formatDate,
         });
     } catch (err) {
         console.error('Error fetching user directories:', err);
