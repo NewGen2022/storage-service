@@ -35,9 +35,12 @@ const createDirectory = async (name, userId, parentId = null) => {
     }
 };
 
-const getAllDirectories = async () => {
+const getAllUserDirectories = async (userId) => {
     try {
-        const directories = prisma.directory.findMany();
+        const directories = await prisma.directory.findMany({
+            where: { userId: userId },
+            include: { files: true },
+        });
         return directories;
     } catch (err) {
         console.error('Error fetching directories:', error);
@@ -45,4 +48,8 @@ const getAllDirectories = async () => {
     }
 };
 
-module.exports = { createUser, createDirectory, getAllDirectories };
+module.exports = {
+    createUser,
+    createDirectory,
+    getAllUserDirectories,
+};
