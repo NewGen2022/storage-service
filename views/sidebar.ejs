@@ -1,7 +1,7 @@
 <nav id="sidebar">
     <ul>
         <li>
-            <button>
+            <button id="addDirBtn">
                 <svg
                     class="bi bi-folder-plus"
                     fill="currentColor"
@@ -59,11 +59,26 @@
                 New File
             </button>
         </li>
-
-        <% dirs.forEach(dir => { %>
-        <li>
-            <a href="/directory/<%= dir.id %>"><%= dir.name %></a>
-        </li>
-        <% }) %>
     </ul>
 </nav>
+
+<div id="addDirForm" class="modal">
+    <form action="/directory/create/dir" method="POST">
+        <h3>New Directory</h3>
+        <label for="dirName">Name</label>
+        <input type="text" id="dirName" name="dirName" required />
+        <div id="actions">
+            <button type="submit" id="createBtn">Create</button>
+            <button type="button" id="cancelBtn">Cancel</button>
+        </div>
+        <input type="hidden" name="parentId" value="<%= currentDirId %>" />
+    </form>
+</div>
+
+<script type="module">
+    import { addDirForm } from '/js/showForms.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+        addDirForm();
+    });
+</script>
