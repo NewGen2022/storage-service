@@ -21,7 +21,7 @@
             </button>
         </li>
         <li>
-            <button>
+            <button id="addFileBtn">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     id="Layer_2"
@@ -63,22 +63,36 @@
 </nav>
 
 <div id="addDirForm" class="modal">
-    <form action="/directory/create/dir" method="POST">
+    <form action="/directory/create/new" method="POST">
         <h3>New Directory</h3>
         <label for="dirName">Name</label>
         <input type="text" id="dirName" name="dirName" required />
         <div id="actions">
-            <button type="submit" id="createBtn">Create</button>
-            <button type="button" id="cancelBtn">Cancel</button>
+            <button type="submit" id="createDirBtn">Create</button>
+            <button type="button" id="cancelDirBtn">Cancel</button>
+        </div>
+        <input type="hidden" name="parentId" value="<%= currentDirId %>" />
+    </form>
+</div>
+
+<div id="addFileForm" class="modal">
+    <form action="/file/create/new" method="POST">
+        <h3>New File</h3>
+        <label for="fileName">Name</label>
+        <input type="text" id="fileName" name="fileName" required />
+        <div id="actions">
+            <button type="submit" id="createFileBtn">Create</button>
+            <button type="button" id="cancelFileBtn">Cancel</button>
         </div>
         <input type="hidden" name="parentId" value="<%= currentDirId %>" />
     </form>
 </div>
 
 <script type="module">
-    import { addDirForm } from '/js/showForms.js';
+    import { showAddDirForm, showAddFileForm } from '/js/showForms.js';
 
     document.addEventListener('DOMContentLoaded', () => {
-        addDirForm();
+        showAddDirForm();
+        showAddFileForm();
     });
 </script>
