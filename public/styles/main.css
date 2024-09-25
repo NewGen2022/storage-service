@@ -1,0 +1,41 @@
+#main {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    box-sizing: border-box;
+    width: 100%;
+    flex-grow: 1;
+}
+
+#grid-header {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr;
+    margin: 10px;
+    background-color: var(--dark-blue-gray);
+    border-radius: 5px;
+}
+
+#grid-header-name,
+#grid-header-size,
+#grid-header-created {
+    border: 2px solid grey;
+    padding: 10px;
+}
+
+#grid-header-name {
+    border-radius: 5px 0 0 5px;
+}
+
+#grid-header-size {
+    border-radius: 0;
+}
+#grid-header-created {
+    border-radius: 0 5px 5px 0;
+}
+
+@media (max-width: 850px) {
+    #main {
+        width: 95%;
+        margin: 10px;
+    }
+}
