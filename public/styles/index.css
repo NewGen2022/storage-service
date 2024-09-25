@@ -40,6 +40,12 @@ button:active {
 }
 
 #container {
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
+}
+
+@media (max-width: 850px) {
+    #container {
+        flex-direction: column-reverse;
+    }
 }
