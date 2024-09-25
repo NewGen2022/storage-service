@@ -30,7 +30,7 @@ model Directory {
     user      User        @relation(fields: [userId], references: [id])
     userId    String
     files     File[]
-    parent    Directory?  @relation("DirectoryChildren", fields: [parentId], references: [id]) // Link to parent folder
+    parent    Directory?  @relation("DirectoryChildren", fields: [parentId], references: [id]) // Link to parent dir
     parentId  String?
     children  Directory[] @relation("DirectoryChildren")
 
@@ -43,7 +43,7 @@ model File {
     size        Float
     type        DocTypes  @default(FILE)
     createdAt   DateTime  @default(now())
-    folder      Directory @relation(fields: [directoryId], references: [id])
+    directory   Directory @relation(fields: [directoryId], references: [id])
     directoryId String
 
     @@unique([directoryId, name], name: "unique_name_in_directory")
