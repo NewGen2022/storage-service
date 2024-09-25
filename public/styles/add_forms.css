@@ -11,7 +11,8 @@
     align-items: center;
 }
 
-#addDirForm form {
+#addDirForm form,
+#addFileForm form {
     background-color: #303030;
     padding: 20px;
     border-radius: 5px;
@@ -31,7 +32,8 @@
     width: clamp(90px, 20%, 150px);
 }
 
-#cancelBtn:hover {
+#cancelDirBtn:hover,
+#cancelFileBtn:hover {
     border-color: var(--red-pink);
     background-color: var(--dark-wine-red);
 }
