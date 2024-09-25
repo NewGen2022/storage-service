@@ -1,5 +1,5 @@
 const { validationResult } = require('express-validator');
-const { createUser } = require('../db/queries');
+const { createUser, getRootDir } = require('../db/queries');
 const hashPassword = require('../public/js/hashPassword');
 const passport = require('../config/passport');
 
@@ -19,11 +19,12 @@ const logIn = (req, res, next) => {
                 prevUsername: req.body.username || '',
             });
         }
-        req.logIn(user, (err) => {
+        req.logIn(user, async (err) => {
             if (err) {
                 return next(err);
             }
-            return res.redirect('/directory');
+            const rootDir = await getRootDir();
+            return res.redirect(`/directory/${rootDir.id}`);
         });
     })(req, res, next);
 };
