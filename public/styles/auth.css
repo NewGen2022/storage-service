@@ -4,6 +4,7 @@ form {
     margin: 5vh auto;
     width: 50%;
     min-width: 270px;
+    box-sizing: border-box;
 }
 
 #form-header {
