@@ -1,0 +1,12 @@
+<div id="addDirForm" class="modal">
+    <form action="/directory/create/new" method="POST">
+        <h3>New Directory</h3>
+        <label for="dirName">Name</label>
+        <input type="text" id="dirName" name="dirName" required />
+        <div id="actions">
+            <button type="submit" id="createDirBtn">Create</button>
+            <button type="button" id="cancelDirBtn">Cancel</button>
+        </div>
+        <input type="hidden" name="parentId" value="<%= currentDirId %>" />
+    </form>
+</div>

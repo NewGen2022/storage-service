@@ -1,0 +1,12 @@
+<div id="addFileForm" class="modal">
+    <form action="/file/create/new" method="POST">
+        <h3>New File</h3>
+        <label for="fileName">Name</label>
+        <input type="text" id="fileName" name="fileName" required />
+        <div id="actions">
+            <button type="submit" id="createFileBtn">Create</button>
+            <button type="button" id="cancelFileBtn">Cancel</button>
+        </div>
+        <input type="hidden" name="parentId" value="<%= currentDirId %>" />
+    </form>
+</div>
