@@ -1,4 +1,9 @@
-const { getAllUserDirectories, createDirectory } = require('../db/queries');
+const {
+    getAllUserDirectories,
+    createDirectory,
+    createFile,
+    directoryExists,
+} = require('../db/queries');
 
 const welcomePage = (req, res) => {
     if (req.isAuthenticated()) {
@@ -11,16 +16,22 @@ const welcomePage = (req, res) => {
 const indexRender = async (req, res) => {
     try {
         const userId = req.user.id;
-        const dirs = await getAllUserDirectories(userId);
         const currentDirId = req.params.dirId || null;
+
+        const dirs = await getAllUserDirectories(userId);
+        const currentDir =
+            dirs.find((directory) => directory.id === currentDirId) || null;
+
+        console.log(currentDir);
 
         res.render('index', {
             user: req.user,
             dirs: dirs,
             currentDirId: currentDirId,
+            currentDir: currentDir,
         });
-    } catch (error) {
-        console.error('Error fetching user directories:', error);
+    } catch (err) {
+        console.error('Error fetching user directories:', err);
         req.flash(
             'error',
             'Unable to load directories. Please try again later.'
@@ -36,12 +47,32 @@ const addDir = async (req, res) => {
 
     try {
         const newDir = await createDirectory(dirName, userId, parentId);
-        res.redirect(`/directory/${newDir.id}`);
-    } catch (error) {
-        console.error('Error creating directory:', error);
+        res.redirect(`/directory/${parentId}`);
+    } catch (err) {
+        console.error('Error creating directory:', err);
         req.flash('error', 'Failed to create directory. Please try again.');
         res.redirect('/directory');
     }
 };
 
-module.exports = { welcomePage, indexRender, addDir };
+const addFile = async (req, res) => {
+    const fileName = req.body.fileName;
+    const parentId = req.body.parentId;
+
+    try {
+        const dirExists = await directoryExists(parentId);
+        if (!dirExists) {
+            req.flash('error', 'Parent directory does not exist.');
+            return res.redirect(`/directory/${parentId}`);
+        }
+
+        const newFile = await createFile(fileName, parentId);
+        res.redirect(`/directory/${parentId}`);
+    } catch (err) {
+        console.error('Error creating file:', err);
+        req.flash('error', 'Failed to create file. Please try again.');
+        res.redirect(`/directory/${parentId}`);
+    }
+};
+
+module.exports = { welcomePage, indexRender, addDir, addFile };
