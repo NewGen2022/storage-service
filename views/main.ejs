@@ -1,1 +1,18 @@
-<div id="main">MAIN</div>
+<div id="main">
+    <div id="grid-header">
+        <div id="grid-header-name">Name</div>
+        <div id="grid-header-size">Size</div>
+        <div id="grid-header-created">Created</div>
+    </div>
+    <div id="grid-body">
+        <% if (currentDir && currentDir.children && currentDir.children.length >
+        0) { %> <% currentDir.children.forEach(child => {%>
+
+        <a href="<%= child.id %>">
+            <div id="grid-body-name"><%= child.name %></div>
+            <div id="grid-body-size">-</div>
+            <div id="grid-body-created"><%= child.createdAt %></div>
+        </a>
+        <% }) %> <% } %>
+    </div>
+</div>
