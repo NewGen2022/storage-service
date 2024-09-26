@@ -4,6 +4,7 @@ const { isAuth } = require('../middleware/authMidware');
 const {
     welcomePage,
     indexRender,
+    fileInfoRender,
     addDir,
     addFile,
 } = require('../controllers/indexController');
@@ -18,6 +19,8 @@ router.get('/directory', isAuth, async (req, res) => {
 });
 
 router.get('/directory/:dirId', isAuth, indexRender);
+
+router.get('/file/:fileId', isAuth, fileInfoRender);
 
 // POST ROUTES
 router.post('/directory/create/new', isAuth, addDir);
