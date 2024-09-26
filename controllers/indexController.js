@@ -5,7 +5,10 @@ const {
     createFile,
     directoryExists,
 } = require('../db/queries');
-const { formatDate } = require('../public/js/timeFormatting');
+const {
+    formatDate,
+    formatDateDetailed,
+} = require('../public/js/timeFormatting');
 
 const welcomePage = (req, res) => {
     if (req.isAuthenticated()) {
@@ -24,12 +27,17 @@ const indexRender = async (req, res) => {
         const currentDir =
             dirs.find((directory) => directory.id === currentDirId) || null;
 
+        const isRoot = currentDir.parentId === null ? true : false;
+        const isDir = currentDir.type === 'DIRECTORY' ? true : false;
+
         res.render('index', {
             user: req.user,
-            dirs: dirs,
-            currentDirId: currentDirId,
-            currentDir: currentDir,
-            formatDate: formatDate,
+            dirs,
+            currentDirId,
+            currentDir,
+            formatDate,
+            isRoot,
+            isDir,
         });
     } catch (err) {
         console.error('Error fetching user directories:', err);
@@ -46,17 +54,15 @@ const fileInfoRender = async (req, res) => {
         const userId = req.user.id;
         const fileId = req.params.fileId;
 
-        const currentDirId = req.params.dirId || null;
-        console.log(currentDirId);
-
         const file = await getFileById(fileId);
         const dirs = await getAllUserDirectories(userId);
 
         res.render('file', {
             file: file,
-            formatDate: formatDate,
+            formatDate: formatDateDetailed,
             dirs: dirs,
             currentDirId: null,
+            isDir: false,
         });
     } catch (err) {
         console.error('Error rendering file information', err);
