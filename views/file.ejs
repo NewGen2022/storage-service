@@ -1,0 +1,6 @@
+<% layout('layout', { dirs: dirs }) %>
+
+<div>Name: <%= file.name %></div>
+<div>Size: <%= file.size %> KB</div>
+<div>Type: <%= file.type %></div>
+<div>Created: <%= formatDate(file.createdAt) %></div>
