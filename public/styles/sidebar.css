@@ -35,7 +35,7 @@
     width: 100%;
     border-radius: 5px;
     font-size: 0.8em;
-    min-width: 145px;
+    min-width: 152px;
 }
 #sidebar button:hover {
     background-color: var(--teal-blue);
@@ -57,5 +57,43 @@
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
+        width: 100%;
+        justify-content: center;
+    }
+
+    #sidebar ul li {
+        width: 100%;
+        margin-bottom: 0;
+    }
+
+    #sidebar button {
+        display: flex;
+        justify-content: center;
+        border: none;
+        background: none;
+        min-width: 50px;
+        font-size: 0;
+        padding: 6px;
+        position: relative;
+        width: 100%;
+    }
+
+    #sidebar button::before {
+        content: '';
+        display: inline-block;
+    }
+
+    #sidebar button:hover {
+        background: none;
+        border: none;
+    }
+
+    #sidebar svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    #sidebar button:hover svg {
+        fill: var(--light-blue);
     }
 }
