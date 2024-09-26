@@ -14,7 +14,7 @@ const { getRootDir } = require('../db/queries');
 router.get('/', welcomePage);
 
 router.get('/directory', isAuth, async (req, res) => {
-    const rootDir = await getRootDir();
+    const rootDir = await getRootDir(req.user.id);
     res.redirect(`/directory/${rootDir.id}`);
 });
 
