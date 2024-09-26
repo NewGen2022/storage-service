@@ -1,5 +1,8 @@
 <div id="header">
-    <a href="/directory" id="header-left-part">
+    <a
+        href="<% if(currentUser) { %> /directory <% } else { %> / <% } %>"
+        id="header-left-part"
+    >
         <div id="header-title">CloudBridge</div>
         <img id="header-icon" src="/images/cloud-storage.png" />
     </a>
