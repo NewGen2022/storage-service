@@ -36,11 +36,27 @@
     border-radius: 5px;
     font-size: 0.8em;
     min-width: 152px;
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
 }
 #sidebar button:hover {
     background-color: var(--teal-blue);
     border: 1px solid var(--light-blue);
     color: #ffffff;
+}
+
+#sidebar .download:hover {
+    background-color: rgb(8, 70, 0);
+    border-color: rgb(46, 191, 27);
+}
+
+#sidebar .share:hover {
+    background-color: rgb(64, 0, 64);
+    border-color: rgb(255, 0, 255);
+}
+
+#sidebar .delete:hover {
+    background-color: var(--dark-wine-red);
+    border-color: var(--red);
 }
 
 @media (max-width: 850px) {
