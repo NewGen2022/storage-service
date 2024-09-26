@@ -1,5 +1,6 @@
 const {
     getAllUserDirectories,
+    getFileById,
     createDirectory,
     createFile,
     directoryExists,
@@ -10,7 +11,7 @@ const welcomePage = (req, res) => {
     if (req.isAuthenticated()) {
         res.redirect('/directory');
     } else {
-        res.render('welcome_page');
+        res.render('welcome_page', { dirs: [] });
     }
 };
 
@@ -37,6 +38,29 @@ const indexRender = async (req, res) => {
             'Unable to load directories. Please try again later.'
         );
         res.redirect('/directory'); // Redirect to a safe route
+    }
+};
+
+const fileInfoRender = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const fileId = req.params.fileId;
+
+        const currentDirId = req.params.dirId || null;
+        console.log(currentDirId);
+
+        const file = await getFileById(fileId);
+        const dirs = await getAllUserDirectories(userId);
+
+        res.render('file', {
+            file: file,
+            formatDate: formatDate,
+            dirs: dirs,
+            currentDirId: null,
+        });
+    } catch (err) {
+        console.error('Error rendering file information', err);
+        res.redirect('/directory');
     }
 };
 
@@ -75,4 +99,4 @@ const addFile = async (req, res) => {
     }
 };
 
-module.exports = { welcomePage, indexRender, addDir, addFile };
+module.exports = { welcomePage, indexRender, fileInfoRender, addDir, addFile };
