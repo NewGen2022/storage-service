@@ -1,0 +1,47 @@
+#success-container {
+    position: absolute;
+    top: 20vh;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #084600;
+    border: 2px solid #2ebf1b;
+    border-bottom: 1px solid #2ebf1b;
+    color: #ffffff;
+    padding: 8px 20px;
+    border-radius: 5px;
+    z-index: 1000;
+    display: none;
+    align-items: center;
+}
+
+#success-msg {
+    margin: 0;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+#progress-bar::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--light-gray);
+    animation: countdown 3s linear forwards;
+}
+
+@keyframes countdown {
+    from {
+        width: 100%;
+    }
+    to {
+        width: 0%;
+    }
+}
+
+@media (max-width: 705px) {
+    #success-container {
+        top: 30vh;
+    }
+}
