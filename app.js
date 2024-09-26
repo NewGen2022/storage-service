@@ -53,6 +53,12 @@ app.use((req, res, next) => {
     next();
 });
 
+// Error-handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something went wrong!'); // Send a generic error message
+});
+
 // set currentUser according to login user
 app.use((req, res, next) => {
     res.locals.currentUser = req.user;
