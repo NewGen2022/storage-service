@@ -56,10 +56,11 @@ const signUp = async (req, res) => {
 
     try {
         await createUser(username, hashedPassword);
+        req.flash('success', 'Your account successfully created!');
         res.status(201).redirect('/login');
     } catch (error) {
-        // Handle unexpected errors
         console.error('Error creating user:', error);
+        req.flash('errors', 'Cannot create user: Internal server error');
         res.status(500).send('Internal server error');
     }
 };
