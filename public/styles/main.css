@@ -5,6 +5,7 @@
     box-sizing: border-box;
     width: 100%;
     flex-grow: 1;
+    height: 100vh;
 }
 
 #grid-header {
@@ -22,15 +23,12 @@
     padding: 10px;
 }
 
-#grid-header-name {
-    border-radius: 5px 0 0 5px;
-}
-
-#grid-header-size {
-    border-radius: 0;
-}
-#grid-header-created {
-    border-radius: 0 5px 5px 0;
+#grid-header-name:hover,
+#grid-header-size:hover,
+#grid-header-created:hover {
+    background-color: var(--dark-gray);
+    cursor: pointer;
+    border-radius: 5px;
 }
 
 #grid-body {
@@ -40,7 +38,8 @@
     margin-top: 10px;
 }
 
-.dir-info-container {
+.dir-info-container,
+.file-info-container {
     display: grid;
     grid-template-columns: 3fr 1fr 1.5fr;
     text-decoration: none;
@@ -51,15 +50,24 @@
     justify-content: center;
     align-items: center;
     padding: 10px;
+    font-size: 0.9em;
 }
-.dir-info-container:hover {
+.dir-info-container:hover,
+.file-info-container:hover {
     background-color: var(--teal-blue);
     border-color: var(--light-blue);
     color: white;
 }
 
-.dir-info-container svg {
+.dir-info-container svg,
+.file-info-container svg {
     fill: white;
+    flex-shrink: 0;
+}
+
+.grid-body-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .grid-body-name {
@@ -71,12 +79,12 @@
 
 .grid-body-size {
     display: flex;
-    margin-left: 25px;
+    margin-left: 10px;
 }
 
 .grid-body-created {
     display: flex;
-    justify-content: center;
+    margin-left: 10px;
 }
 
 #no-dirs-or-files {
