@@ -3,7 +3,7 @@
 :root {
     color: var(--light-gray);
     background-color: #141419;
-    min-height: 100%;
+    height: 100%;
     --light-blue: #00aeff;
     --teal-blue: #0076ac;
     --light-gray: #e6e6e6;
@@ -29,6 +29,7 @@ body {
     flex-direction: column;
     min-height: 100vh;
     font-size: 18px;
+    justify-content: flex-start;
 }
 
 button {
@@ -40,8 +41,9 @@ button:active {
 }
 
 #container {
-    height: 100vh;
     display: flex;
+    width: 100%;
+    height: auto;
 }
 
 @media (max-width: 850px) {
