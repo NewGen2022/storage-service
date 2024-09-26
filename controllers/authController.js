@@ -23,7 +23,7 @@ const logIn = (req, res, next) => {
             if (err) {
                 return next(err);
             }
-            const rootDir = await getRootDir();
+            const rootDir = await getRootDir(req.user.id);
             return res.redirect(`/directory/${rootDir.id}`);
         });
     })(req, res, next);
