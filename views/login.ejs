@@ -1,6 +1,29 @@
 <% layout('layout') %>
 
+<script>
+    window.onload = function () {
+        const successContainer = document.getElementById('success-container');
+        const successMsg = document.getElementById('success-msg');
+
+        // Check if the success message exists
+        if (successMsg.innerHTML) {
+            successContainer.style.display = 'flex';
+
+            setTimeout(() => {
+                successContainer.style.display = 'none';
+            }, 3000);
+        }
+    };
+</script>
+
 <form id="login" class="form" action="/login" method="POST">
+    <div id="success-container">
+        <% if(success) { %>
+        <div id="success-msg"><%= success %></div>
+        <div id="progress-bar"></div>
+        <% } %>
+    </div>
+
     <div id="form-header">Log In</div>
 
     <% if (errors && errors.length > 0) { %>
