@@ -82,6 +82,27 @@ const getRootDir = async (userId) => {
     }
 };
 
+const getFileById = async (fileId) => {
+    try {
+        const file = await prisma.file.findFirst({
+            where: {
+                AND: {
+                    id: fileId,
+                },
+            },
+        });
+
+        if (!file) {
+            throw new Error('File not found or access denied');
+        }
+
+        return file;
+    } catch (error) {
+        console.error('Error fetching file:', error);
+        throw error;
+    }
+};
+
 //
 const directoryExists = async (directoryId) => {
     const directory = await prisma.directory.findUnique({
@@ -96,5 +117,6 @@ module.exports = {
     createFile,
     getAllUserDirectories,
     getRootDir,
+    getFileById,
     directoryExists,
 };
