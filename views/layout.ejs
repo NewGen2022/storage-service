@@ -16,7 +16,13 @@
     <body>
         <%- include('header') %>
 
-        <!-- ALL CONTENT THAT I RENDER USING THIS TEMPLATE -->
-        <%- body %>
+        <div id="container">
+            <!-- SIDEBAR template -->
+            <% if(currentUser) { %> <%- include('sidebar', { dirs: dirs }) %> <%
+            } %>
+
+            <!-- MAIN CONTENT template -->
+            <div id="main"><%- body %></div>
+        </div>
     </body>
 </html>
