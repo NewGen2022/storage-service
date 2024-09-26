@@ -86,9 +86,7 @@ const getFileById = async (fileId) => {
     try {
         const file = await prisma.file.findFirst({
             where: {
-                AND: {
-                    id: fileId,
-                },
+                id: fileId,
             },
         });
 
@@ -99,6 +97,23 @@ const getFileById = async (fileId) => {
         return file;
     } catch (error) {
         console.error('Error fetching file:', error);
+        throw error;
+    }
+};
+
+// DELETE QUERIES
+const deleteFile = async (fileId) => {
+    try {
+        const file = await getFileById(fileId);
+
+        // Delete the file
+        await prisma.file.delete({
+            where: { id: fileId },
+        });
+
+        console.log(`File ${file.name} deleted successfully.`);
+    } catch (err) {
+        console.error('Error deleting file:', error);
         throw error;
     }
 };
