@@ -112,4 +112,23 @@
     #sidebar button:hover svg {
         fill: var(--light-blue);
     }
+
+    #sidebar #shareDirBtn:hover svg {
+        fill: rgb(255, 0, 255);
+    }
+
+    #sidebar #deleteDirBtn:hover svg,
+    #sidebar #deleteFileBtn:hover svg {
+        fill: var(--red);
+    }
+
+    #sidebar #downloadFileBtn:hover svg {
+        fill: rgb(46, 191, 27);
+    }
+
+    #sidebar .delete:hover,
+    #sidebar .share:hover,
+    #sidebar .download:hover {
+        background: none;
+    }
 }
