@@ -96,6 +96,32 @@
     color: #fdeb37;
 }
 
+#breadcrumb {
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ababab;
+    flex-wrap: wrap;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+#breadcrumb a {
+    text-decoration: none;
+    color: #dbdbdb;
+    font-size: 0.9em;
+    font-weight: 600;
+    max-width: 200px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#breadcrumb #last {
+    color: var(--light-blue);
+}
+
 @media (max-width: 850px) {
     #main {
         width: 95%;
