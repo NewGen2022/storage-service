@@ -59,6 +59,11 @@
     border-color: var(--red);
 }
 
+#sidebar .edit:hover {
+    background-color: rgb(138, 103, 0);
+    border-color: rgb(255, 191, 0);
+}
+
 @media (max-width: 850px) {
     #sidebar {
         width: 100%;
@@ -126,9 +131,15 @@
         fill: rgb(46, 191, 27);
     }
 
+    #sidebar #editDirBtn:hover svg,
+    #sidebar #editFileBtn:hover svg {
+        fill: rgb(255, 255, 0);
+    }
+
     #sidebar .delete:hover,
     #sidebar .share:hover,
-    #sidebar .download:hover {
+    #sidebar .download:hover,
+    #sidebar .edit:hover {
         background: none;
     }
 }
