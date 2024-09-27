@@ -51,3 +51,25 @@ button:active {
         flex-direction: column-reverse;
     }
 }
+
+/* Style the scrollbar container */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+/* Style the scrollbar track (the area where the scrollbar moves) */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Style the scrollbar thumb (the draggable part of the scrollbar) */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+/* Style the scrollbar thumb on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
