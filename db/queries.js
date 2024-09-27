@@ -82,6 +82,24 @@ const getRootDir = async (userId) => {
     }
 };
 
+const getDirById = async (dirId) => {
+    try {
+        const dir = prisma.directory.findUnique({
+            where: { id: dirId },
+            select: {
+                id: true,
+                name: true,
+                parentId: true,
+            },
+        });
+
+        return dir;
+    } catch (err) {
+        console.error('Directory with ID ${parentId} not found:', err);
+        throw err;
+    }
+};
+
 const getFileById = async (fileId) => {
     try {
         const file = await prisma.file.findFirst({
@@ -95,9 +113,9 @@ const getFileById = async (fileId) => {
         }
 
         return file;
-    } catch (error) {
-        console.error('Error fetching file:', error);
-        throw error;
+    } catch (err) {
+        console.error('Error fetching file:', err);
+        throw err;
     }
 };
 
@@ -134,4 +152,5 @@ module.exports = {
     getRootDir,
     getFileById,
     directoryExists,
+    getDirById,
 };
