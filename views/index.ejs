@@ -1,5 +1,15 @@
 <% layout('layout', { dirs: dirs }) %>
 
+<div id="breadcrumb">
+    <% breadCrumb.forEach((dir, index) => { %>
+    <a
+        href="/directory/<%= dir.id %>"
+        id="<%= index === breadCrumb.length - 1 ? 'last' : '' %>"
+        ><%= dir.name %></a
+    >
+    <% if (index < breadCrumb.length - 1) { %> > <% } %> <% }) %>
+</div>
+
 <div id="grid-header">
     <div id="grid-header-name">Name</div>
     <div id="grid-header-size">Size</div>
