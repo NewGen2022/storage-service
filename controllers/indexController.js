@@ -9,6 +9,7 @@ const {
     formatDate,
     formatDateDetailed,
 } = require('../public/js/timeFormatting');
+const { buildBreadCrumb } = require('../public/js/breadCrumb');
 
 const welcomePage = (req, res) => {
     if (req.isAuthenticated()) {
@@ -30,6 +31,8 @@ const indexRender = async (req, res) => {
         const isRoot = currentDir.parentId === null ? true : false;
         const isDir = currentDir.type === 'DIRECTORY' ? true : false;
 
+        const breadCrumb = await buildBreadCrumb(currentDir);
+
         res.render('index', {
             user: req.user,
             dirs,
@@ -38,6 +41,7 @@ const indexRender = async (req, res) => {
             formatDate,
             isRoot,
             isDir,
+            breadCrumb,
         });
     } catch (err) {
         console.error('Error fetching user directories:', err);
