@@ -1,3 +1,16 @@
+const showSuccessMsg = () => {
+    const successContainer = document.getElementById('success-container');
+    const successMsg = document.getElementById('success-msg');
+
+    if (successMsg.innerHTML) {
+        successContainer.style.display = 'flex';
+
+        setTimeout(() => {
+            successContainer.style.display = 'none';
+        }, 3000);
+    }
+};
+
 const showAddDirForm = () => {
     const addDirForm = document.getElementById('addDirForm');
     const addDirBtn = document.getElementById('addDirBtn');
@@ -40,4 +53,4 @@ const showDeleteFileForm = () => {
     });
 };
 
-export { showAddDirForm, showAddFileForm, showDeleteFileForm };
+export { showSuccessMsg, showAddDirForm, showAddFileForm, showDeleteFileForm };
