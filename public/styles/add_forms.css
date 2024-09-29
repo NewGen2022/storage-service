@@ -13,14 +13,15 @@
 
 #addDirForm form,
 #addFileForm form,
-#deleteFileForm form {
+#deleteFileForm form,
+#deleteDirForm form {
     background-color: #303030;
     padding: 20px;
     border-radius: 5px;
     max-width: 450px;
 }
 
-#actions {
+.actions {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -28,7 +29,7 @@
     justify-content: end;
 }
 
-#actions button {
+.actions button {
     padding: 7px;
     width: clamp(90px, 20%, 150px);
 }
@@ -36,19 +37,14 @@
 #cancelDirBtn:hover,
 #cancelFileBtn:hover,
 #formDeleteFileBtn:hover,
-#cancelDeleteFileBtn:hover {
+#cancelDeleteFileBtn:hover,
+#formDeleteDirBtn:hover,
+#cancelDeleteDirBtn:hover {
     border-color: var(--red-pink);
     background-color: var(--dark-wine-red);
 }
 
-#fileNameToDelete {
-    margin-top: 10px;
-    border: 1px solid var(--red-pink);
-    box-shadow: 0 0 10px var(--dark-wine-red);
-    border-radius: 5px;
-    color: var(--light-gray);
-    background-color: var(--charcoal-gray);
-    padding: 7px;
-    padding-left: 12px;
-    font-size: 1em;
+.delete-text {
+    color: var(--red-pink);
+    font-weight: 600;
 }
