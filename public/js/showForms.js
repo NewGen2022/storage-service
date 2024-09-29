@@ -53,4 +53,24 @@ const showDeleteFileForm = () => {
     });
 };
 
-export { showSuccessMsg, showAddDirForm, showAddFileForm, showDeleteFileForm };
+const showDeleteDirForm = () => {
+    const deleteDirForm = document.getElementById('deleteDirForm');
+    const deleteDirBtn = document.getElementById('deleteDirBtn');
+    const cancelDeleteDirBtn = document.getElementById('cancelDeleteDirBtn');
+
+    deleteDirBtn.addEventListener('click', () => {
+        deleteDirForm.style.display = 'flex';
+    });
+
+    cancelDeleteDirBtn.addEventListener('click', () => {
+        deleteDirForm.style.display = 'none';
+    });
+};
+
+export {
+    showSuccessMsg,
+    showAddDirForm,
+    showAddFileForm,
+    showDeleteFileForm,
+    showDeleteDirForm,
+};
