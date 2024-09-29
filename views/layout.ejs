@@ -20,7 +20,7 @@
         <div id="container">
             <!-- SIDEBAR template -->
             <% if(currentUser) { %> <%- include('sidebar', { dirs: dirs, fileId:
-            file.id, fileName: file.name}) %> <% } %>
+            file.id, fileName: file.name, dirId: currentDirId}) %> <% } %>
 
             <!-- MAIN CONTENT template -->
             <div id="main"><%- body %></div>
@@ -33,6 +33,7 @@
             showAddDirForm,
             showAddFileForm,
             showDeleteFileForm,
+            showDeleteDirForm,
         } from '/js/showForms.js';
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -41,6 +42,7 @@
             const addDirBtn = document.getElementById('addDirBtn');
             const addFileBtn = document.getElementById('addFileBtn');
             const deleteFileBtn = document.getElementById('deleteFileBtn');
+            const deleteDirBtn = document.getElementById('deleteDirBtn');
 
             if (successContainer) {
                 showSuccessMsg();
@@ -53,6 +55,9 @@
             }
             if (deleteFileBtn) {
                 showDeleteFileForm();
+            }
+            if (deleteDirBtn) {
+                showDeleteDirForm();
             }
         });
     </script>
