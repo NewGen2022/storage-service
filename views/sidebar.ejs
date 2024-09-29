@@ -1,9 +1,24 @@
 <script type="module">
-    import { showAddDirForm, showAddFileForm } from '/js/showForms.js';
+    import {
+        showAddDirForm,
+        showAddFileForm,
+        showDeleteFileForm,
+    } from '/js/showForms.js';
 
     document.addEventListener('DOMContentLoaded', () => {
-        showAddDirForm();
-        showAddFileForm();
+        const addDirBtn = document.getElementById('addDirBtn');
+        const addFileBtn = document.getElementById('addFileBtn');
+        const deleteFileBtn = document.getElementById('deleteFileBtn');
+
+        if (addDirBtn) {
+            showAddDirForm();
+        }
+        if (addFileBtn) {
+            showAddFileForm();
+        }
+        if (deleteFileBtn) {
+            showDeleteFileForm();
+        }
     });
 </script>
 
@@ -203,3 +218,5 @@
 <%- include('addDirForm') %>
 <!--  -->
 <%- include('addFileForm') %>
+<!--  -->
+<%- include('deleteFileForm', { fileId, fileName }) %>
