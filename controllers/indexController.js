@@ -4,6 +4,7 @@ const {
     createDirectory,
     createFile,
     deleteFile,
+    deleteDir,
     directoryExists,
 } = require('../db/queries');
 const {
@@ -124,6 +125,21 @@ const deleteFileController = async (req, res) => {
     }
 };
 
+const deleteDirController = async (req, res) => {
+    const dirId = req.body.dirId;
+    const parentId = req.body.parentId;
+
+    console.log(parentId);
+
+    try {
+        await deleteDir(dirId);
+        res.redirect(`/directory/${parentId}`);
+    } catch (err) {
+        console.error('Error deleting directory:', err);
+        res.redirect(`/directory/${parentId}`);
+    }
+};
+
 module.exports = {
     welcomePage,
     indexRender,
@@ -131,4 +147,5 @@ module.exports = {
     addDir,
     addFile,
     deleteFileController,
+    deleteDirController,
 };
