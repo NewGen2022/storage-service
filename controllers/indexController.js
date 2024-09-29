@@ -3,6 +3,7 @@ const {
     getFileById,
     createDirectory,
     createFile,
+    deleteFile,
     directoryExists,
 } = require('../db/queries');
 const {
@@ -42,6 +43,7 @@ const indexRender = async (req, res) => {
             isRoot,
             isDir,
             breadCrumb,
+            file: {},
         });
     } catch (err) {
         console.error('Error fetching user directories:', err);
@@ -80,7 +82,7 @@ const addDir = async (req, res) => {
     const parentId = req.body.parentId;
 
     try {
-        const newDir = await createDirectory(dirName, userId, parentId);
+        await createDirectory(dirName, userId, parentId);
         res.redirect(`/directory/${parentId}`);
     } catch (err) {
         console.error('Error creating directory:', err);
@@ -100,7 +102,7 @@ const addFile = async (req, res) => {
             return res.redirect(`/directory/${parentId}`);
         }
 
-        const newFile = await createFile(fileName, parentId);
+        await createFile(fileName, parentId);
         res.redirect(`/directory/${parentId}`);
     } catch (err) {
         console.error('Error creating file:', err);
@@ -109,4 +111,24 @@ const addFile = async (req, res) => {
     }
 };
 
-module.exports = { welcomePage, indexRender, fileInfoRender, addDir, addFile };
+const deleteFileController = async (req, res) => {
+    const fileId = req.body.fileId;
+    const parentId = req.body.parentId;
+
+    try {
+        await deleteFile(fileId);
+        res.redirect(`/directory/${parentId}`);
+    } catch (err) {
+        console.error('Error deleting file:', err);
+        res.redirect(`/directory/${parentId}`);
+    }
+};
+
+module.exports = {
+    welcomePage,
+    indexRender,
+    fileInfoRender,
+    addDir,
+    addFile,
+    deleteFileController,
+};
