@@ -12,7 +12,8 @@
 }
 
 #addDirForm form,
-#addFileForm form {
+#addFileForm form,
+#deleteFileForm form {
     background-color: #303030;
     padding: 20px;
     border-radius: 5px;
@@ -33,7 +34,21 @@
 }
 
 #cancelDirBtn:hover,
-#cancelFileBtn:hover {
+#cancelFileBtn:hover,
+#formDeleteFileBtn:hover,
+#cancelDeleteFileBtn:hover {
     border-color: var(--red-pink);
     background-color: var(--dark-wine-red);
+}
+
+#fileNameToDelete {
+    margin-top: 10px;
+    border: 1px solid var(--red-pink);
+    box-shadow: 0 0 10px var(--dark-wine-red);
+    border-radius: 5px;
+    color: var(--light-gray);
+    background-color: var(--charcoal-gray);
+    padding: 7px;
+    padding-left: 12px;
+    font-size: 1em;
 }
