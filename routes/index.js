@@ -7,6 +7,7 @@ const {
     fileInfoRender,
     addDir,
     addFile,
+    deleteFileController,
 } = require('../controllers/indexController');
 const { getRootDir } = require('../db/queries');
 
@@ -26,5 +27,7 @@ router.get('/file/:fileId', isAuth, fileInfoRender);
 router.post('/directory/create/new', isAuth, addDir);
 
 router.post('/file/create/new', isAuth, addFile);
+
+router.post('/file/delete/:id', isAuth, deleteFileController);
 
 module.exports = router;
