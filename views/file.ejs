@@ -1,6 +1,8 @@
-<% layout('layout', { dirs: dirs, fileId: file.id, fileName: file.name }) %>
+<% layout('layout', { dirs: dirs }) %>
 
 <div>Name: <%= file.name %></div>
 <div>Size: <%= file.size %> KB</div>
 <div>Type: <%= file.type %></div>
 <div>Created: <%= formatDate(file.createdAt) %></div>
+
+<%- include('deleteFileForm', { fileId: file.id, fileName: file.name }) %>
