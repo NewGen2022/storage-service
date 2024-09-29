@@ -19,8 +19,8 @@
 
         <div id="container">
             <!-- SIDEBAR template -->
-            <% if(currentUser) { %> <%- include('sidebar', { dirs: dirs }) %> <%
-            } %>
+            <% if(currentUser) { %> <%- include('sidebar', { dirs: dirs, fileId:
+            file.id, fileName: file.name}) %> <% } %>
 
             <!-- MAIN CONTENT template -->
             <div id="main"><%- body %></div>
