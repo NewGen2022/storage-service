@@ -1,12 +1,12 @@
 <div id="deleteFileForm" class="modal">
     <form action="/file/delete/<%= fileId %>" method="POST">
-        <h3>Delete File</h3>
+        <h3 class="delete-text">Delete File</h3>
         <label for="fileName"
-            >Are you sure you want to delete file:
-            <b><div id="fileNameToDelete"><%= fileName %></div></b>
+            >Are you sure you want to
+            <span class="delete-text">delete</span> file "<%= fileName %>"
         </label>
         <input type="hidden" name="fileId" value="<%= fileId %>" />
-        <div id="actions">
+        <div class="actions">
             <button type="submit" id="formDeleteFileBtn">Delete</button>
             <button type="button" id="cancelDeleteFileBtn">Cancel</button>
         </div>
