@@ -93,7 +93,7 @@
     justify-content: center;
     margin-top: 10vh;
     font-weight: 700;
-    color: #fdeb37;
+    color: var(--dark-gray);
 }
 
 #breadcrumb {
