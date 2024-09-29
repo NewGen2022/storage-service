@@ -26,4 +26,34 @@
             <div id="main"><%- body %></div>
         </div>
     </body>
+
+    <script type="module">
+        import {
+            showSuccessMsg,
+            showAddDirForm,
+            showAddFileForm,
+            showDeleteFileForm,
+        } from '/js/showForms.js';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const successContainer =
+                document.getElementById('success-container');
+            const addDirBtn = document.getElementById('addDirBtn');
+            const addFileBtn = document.getElementById('addFileBtn');
+            const deleteFileBtn = document.getElementById('deleteFileBtn');
+
+            if (successContainer) {
+                showSuccessMsg();
+            }
+            if (addDirBtn) {
+                showAddDirForm();
+            }
+            if (addFileBtn) {
+                showAddFileForm();
+            }
+            if (deleteFileBtn) {
+                showDeleteFileForm();
+            }
+        });
+    </script>
 </html>
