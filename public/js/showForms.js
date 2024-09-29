@@ -26,4 +26,18 @@ const showAddFileForm = () => {
     });
 };
 
-export { showAddDirForm, showAddFileForm };
+const showDeleteFileForm = () => {
+    const deleteFileForm = document.getElementById('deleteFileForm');
+    const deleteFileBtn = document.getElementById('deleteFileBtn');
+    const cancelDeleteFileBtn = document.getElementById('cancelDeleteFileBtn');
+
+    deleteFileBtn.addEventListener('click', () => {
+        deleteFileForm.style.display = 'flex';
+    });
+
+    cancelDeleteFileBtn.addEventListener('click', () => {
+        deleteFileForm.style.display = 'none';
+    });
+};
+
+export { showAddDirForm, showAddFileForm, showDeleteFileForm };
