@@ -60,7 +60,6 @@
                 New File
             </button>
         </li>
-
         <% } %> <% if(isDir && !isRoot) {%>
         <li>
             <button class="share" id="shareDirBtn">
@@ -186,11 +185,16 @@
                 Delete File
             </button>
         </li>
-
         <% } %>
     </ul>
 </nav>
 
+<% if(isDir) { %>
+<!--  -->
 <%- include('addDirForm') %>
 <!--  -->
+<%- include('deleteDirForm', dirId) %>
+<!--  -->
 <%- include('addFileForm') %>
+<!--  -->
+<% } %>
