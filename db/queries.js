@@ -130,6 +130,7 @@ const deleteFile = async (fileId) => {
         });
 
         console.log(`File ${file.name} deleted successfully.`);
+        return true;
     } catch (err) {
         console.error('Error deleting file:', error);
         throw error;
@@ -151,6 +152,7 @@ module.exports = {
     getAllUserDirectories,
     getRootDir,
     getFileById,
-    directoryExists,
     getDirById,
+    deleteFile,
+    directoryExists,
 };
