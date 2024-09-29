@@ -1,0 +1,20 @@
+<div id="deleteDirForm" class="modal">
+    <form action="/directory/delete/<%= dirId %>" method="POST">
+        <h3 class="delete-text">Delete Directory</h3>
+        <label for="dirName"
+            >Are you sure you want to
+            <span class="delete-text">delete</span> the current folder and all
+            of its contents?
+        </label>
+        <input type="hidden" name="dirId" value="<%= dirId %>" />
+        <div class="actions">
+            <button type="submit" id="formDeleteDirBtn">Delete</button>
+            <button type="button" id="cancelDeleteDirBtn">Cancel</button>
+        </div>
+        <input
+            type="hidden"
+            name="parentId"
+            value="<%= currentDir.parentId %>"
+        />
+    </form>
+</div>
