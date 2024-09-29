@@ -137,6 +137,35 @@ const deleteFile = async (fileId) => {
     }
 };
 
+const deleteDir = async (dirId) => {
+    try {
+        const dir = await getDirById(dirId);
+
+        // Delete all files within the directory
+        await prisma.file.deleteMany({
+            where: { directoryId: dirId },
+        });
+
+        // Delete all subdirectories recursively
+        await prisma.directory.deleteMany({
+            where: { parentId: dirId },
+        });
+
+        // Delete the directory itself
+        await prisma.directory.delete({
+            where: { id: dirId },
+        });
+
+        console.log(
+            `Directory ${dir.name} and its contents deleted successfully.`
+        );
+        return true;
+    } catch (err) {
+        console.error('Error deleting directory:', err);
+        throw err;
+    }
+};
+
 //
 const directoryExists = async (directoryId) => {
     const directory = await prisma.directory.findUnique({
@@ -154,5 +183,6 @@ module.exports = {
     getFileById,
     getDirById,
     deleteFile,
+    deleteDir,
     directoryExists,
 };
