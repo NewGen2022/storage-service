@@ -1,4 +1,4 @@
-<% layout('layout', { dirs: dirs }) %>
+<% layout('layout', { dirs: dirs, fileId: file.id, fileName: file.name }) %>
 
 <div>Name: <%= file.name %></div>
 <div>Size: <%= file.size %> KB</div>
