@@ -8,6 +8,7 @@ const {
     addDir,
     addFile,
     deleteFileController,
+    deleteDirController,
 } = require('../controllers/indexController');
 const { getRootDir } = require('../db/queries');
 
@@ -29,5 +30,7 @@ router.post('/directory/create/new', isAuth, addDir);
 router.post('/file/create/new', isAuth, addFile);
 
 router.post('/file/delete/:id', isAuth, deleteFileController);
+
+router.post('/directory/delete/:id', isAuth, deleteDirController);
 
 module.exports = router;
