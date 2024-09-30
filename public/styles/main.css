@@ -5,7 +5,7 @@
     box-sizing: border-box;
     width: 100%;
     flex-grow: 1;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 #grid-header {
@@ -120,6 +120,29 @@
 
 #breadcrumb #last {
     color: var(--light-blue);
+}
+
+#filePreview,
+#filePdf {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    background-color: rgba(128, 128, 128, 0.481);
+    border-radius: 5px;
+    width: 100%;
+}
+
+#filePreview img {
+    max-height: 450px;
+}
+
+#filePreview embed {
+    height: 450px;
+    width: 100%;
+}
+
+#fileInfo {
+    margin-top: 10px;
 }
 
 @media (max-width: 850px) {

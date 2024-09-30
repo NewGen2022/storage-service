@@ -43,7 +43,7 @@ button:active {
 #container {
     display: flex;
     width: 100%;
-    height: auto;
+    min-height: 100vh;
 }
 
 @media (max-width: 850px) {
