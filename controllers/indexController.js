@@ -12,6 +12,7 @@ const {
     formatDateDetailed,
 } = require('../public/js/timeFormatting');
 const { buildBreadCrumb } = require('../public/js/breadCrumb');
+const { uploadFile } = require('../storage/supabase');
 
 const welcomePage = (req, res) => {
     if (req.isAuthenticated()) {
@@ -108,14 +109,19 @@ const addFile = async (req, res) => {
             return res.redirect(`/directory/${parentId}`);
         }
 
+        // Upload the file to Supabase
+        const filePath = `${parentId}/${uploadedFile.originalname}`; // Specify the path in the bucket
+        const uploadedData = await uploadFile(filePath, uploadedFile); // Upload the file
+
         await createFile(
-            uploadedFile.originalname, // Name of the file
-            uploadedFile.mimetype, // File type
+            uploadedFile.originalname, // File name
+            uploadedFile.mimetype, // File extension
             uploadedFile.size, // File size
-            uploadedFile.path, // Cloudinary path (this may be the URL)
-            uploadedFile.filename, // Use uploadedFile.filename for the public ID
+            uploadedData.fullPath, // File path
             parentId // Parent directory ID
         );
+
+        console.log('Uploaded File:', uploadedFile);
         res.redirect(`/directory/${parentId}`);
     } catch (err) {
         console.error('Error creating file:', err);
