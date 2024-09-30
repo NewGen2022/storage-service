@@ -1,8 +1,28 @@
 <% layout('layout', { dirs: dirs }) %>
 
-<div>Name: <%= file.name %></div>
-<div>Size: <%= file.size %> KB</div>
-<div>Type: <%= file.type %></div>
-<div>Created: <%= formatDate(file.createdAt) %></div>
+<div id="filePreview">
+    <% if (file.extension === 'image/jpeg') { %>
+    <img
+        src="https://oyjkiiwvhqlfhsqxanwj.supabase.co/storage/v1/object/public/<%= file.path %>"
+        alt="<%= file.name %>"
+    />
+    <% } else if (file.extension === 'application/pdf') { %>
+    <embed
+        src="https://oyjkiiwvhqlfhsqxanwj.supabase.co/storage/v1/object/public/<%= file.path %>"
+        type="application/pdf"
+    />
+    <% } else { %>
+    <p>Preview not available for this file type: <%= file.name %></p>
+    <% } %>
+</div>
+
+<div id="fileInfo">
+    <div id="fileInfoName"><b>Name:</b> <%= file.name %></div>
+    <div id="fileInfoSize"><b>Size:</b> <%= file.size %> KB</div>
+    <div id="fileInfoExt"><b>Type:</b> <%= file.extension %></div>
+    <div id="fileInfoUploaded">
+        <b>Uploaded:</b> <%= formatDate(file.createdAt) %>
+    </div>
+</div>
 
 <%- include('deleteFileForm', { fileId: file.id, fileName: file.name }) %>
