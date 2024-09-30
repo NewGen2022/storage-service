@@ -1,10 +1,9 @@
 <div id="addFileForm" class="modal">
-    <form action="/file/create/new" method="POST">
+    <form action="/file/create/new" method="POST" enctype="multipart/form-data">
         <h3>New File</h3>
-        <label for="fileName">Name</label>
-        <input type="text" id="fileName" name="fileName" required />
+        <input type="file" name="file" id="fileUpload" required />
         <div class="actions">
-            <button type="submit" id="createFileBtn">Create</button>
+            <button type="submit" id="createFileBtn">Upload</button>
             <button type="button" id="cancelFileBtn">Cancel</button>
         </div>
         <input type="hidden" name="parentId" value="<%= currentDirId %>" />
