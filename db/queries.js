@@ -1,4 +1,5 @@
 const prisma = require('../db/prismaClient');
+const { cloudinary } = require('../storage/storage');
 
 // CREATE QUERIES
 const createUser = async (username, password) => {
@@ -36,13 +37,23 @@ const createDirectory = async (name, userId, parentId = null) => {
     }
 };
 
-const createFile = async (name, parentId = null) => {
+const createFile = async (
+    name,
+    extension,
+    size,
+    path,
+    cloudinaryId,
+    parentId = null
+) => {
     try {
         const file = await prisma.file.create({
             data: {
                 name: name,
-                size: 0,
+                extension: extension,
+                size: size,
                 directory: { connect: { id: parentId } },
+                cloudinaryId: cloudinaryId,
+                path: path,
             },
         });
 
@@ -124,6 +135,9 @@ const deleteFile = async (fileId) => {
     try {
         const file = await getFileById(fileId);
 
+        // Delete the file from Cloudinary
+        await cloudinary.uploader.destroy(file.cloudinaryId);
+
         // Delete the file
         await prisma.file.delete({
             where: { id: fileId },
@@ -132,8 +146,8 @@ const deleteFile = async (fileId) => {
         console.log(`File ${file.name} deleted successfully.`);
         return true;
     } catch (err) {
-        console.error('Error deleting file:', error);
-        throw error;
+        console.error('Error deleting file:', err);
+        throw err;
     }
 };
 
