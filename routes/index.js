@@ -1,5 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+const { storage } = require('../storage/storage');
+const upload = multer({ storage });
 const { isAuth } = require('../middleware/authMidware');
 const {
     welcomePage,
@@ -27,7 +30,7 @@ router.get('/file/:fileId', isAuth, fileInfoRender);
 // POST ROUTES
 router.post('/directory/create/new', isAuth, addDir);
 
-router.post('/file/create/new', isAuth, addFile);
+router.post('/file/create/new', isAuth, upload.single('file'), addFile);
 
 router.post('/file/delete/:id', isAuth, deleteFileController);
 
