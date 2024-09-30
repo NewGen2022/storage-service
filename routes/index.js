@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const { storage } = require('../storage/storage');
-const upload = multer({ storage });
+const storage = multer.memoryStorage();
+const upload = multer({ storage, limits: { fileSize: 20 * 1024 * 1024 } });
 const { isAuth } = require('../middleware/authMidware');
 const {
     welcomePage,
