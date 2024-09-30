@@ -30,8 +30,8 @@ const indexRender = async (req, res) => {
         const currentDir =
             dirs.find((directory) => directory.id === currentDirId) || null;
 
-        const isRoot = currentDir.parentId === null ? true : false;
-        const isDir = currentDir.type === 'DIRECTORY' ? true : false;
+        const isRoot = !currentDir || currentDir.parentId === null;
+        const isDir = currentDir ? currentDir.type === 'DIRECTORY' : false;
 
         const breadCrumb = await buildBreadCrumb(currentDir);
 
@@ -93,8 +93,13 @@ const addDir = async (req, res) => {
 };
 
 const addFile = async (req, res) => {
-    const fileName = req.body.fileName;
+    const uploadedFile = req.file;
     const parentId = req.body.parentId;
+
+    if (!uploadedFile) {
+        req.flash('error', 'No file uploaded.');
+        return res.redirect(`/directory/${parentId}`);
+    }
 
     try {
         const dirExists = await directoryExists(parentId);
@@ -103,7 +108,14 @@ const addFile = async (req, res) => {
             return res.redirect(`/directory/${parentId}`);
         }
 
-        await createFile(fileName, parentId);
+        await createFile(
+            uploadedFile.originalname, // Name of the file
+            uploadedFile.mimetype, // File type
+            uploadedFile.size, // File size
+            uploadedFile.path, // Cloudinary path (this may be the URL)
+            uploadedFile.filename, // Use uploadedFile.filename for the public ID
+            parentId // Parent directory ID
+        );
         res.redirect(`/directory/${parentId}`);
     } catch (err) {
         console.error('Error creating file:', err);
@@ -128,8 +140,6 @@ const deleteFileController = async (req, res) => {
 const deleteDirController = async (req, res) => {
     const dirId = req.body.dirId;
     const parentId = req.body.parentId;
-
-    console.log(parentId);
 
     try {
         await deleteDir(dirId);
