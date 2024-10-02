@@ -69,7 +69,7 @@ const fileInfoRender = async (req, res) => {
             file: file,
             formatDate: formatDateDetailed,
             dirs: dirs,
-            currentDirId: null,
+            currentDirId: file.directoryId,
             isDir: false,
         });
     } catch (err) {
@@ -96,6 +96,7 @@ const addDir = async (req, res) => {
 const addFile = async (req, res) => {
     const uploadedFile = req.file;
     const parentId = req.body.parentId;
+    const userId = req.user.id;
 
     if (!uploadedFile) {
         req.flash('error', 'No file uploaded.');
@@ -110,7 +111,7 @@ const addFile = async (req, res) => {
         }
 
         // Upload the file to Supabase
-        const filePath = `${parentId}/${uploadedFile.originalname}`; // Specify the path in the bucket
+        const filePath = `${userId}/${uploadedFile.originalname}`; // Specify the path in the bucket
         const uploadedData = await uploadFile(filePath, uploadedFile); // Upload the file
 
         await createFile(
