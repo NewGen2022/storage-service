@@ -38,16 +38,15 @@ model Directory {
 }
 
 model File {
-    id           String    @id @default(uuid())
-    name         String
-    size         Float
-    extension    String    @default("")
-    type         DocTypes  @default(FILE)
-    createdAt    DateTime  @default(now())
-    directory    Directory @relation(fields: [directoryId], references: [id])
-    directoryId  String
-    path         String?
-    cloudinaryId String?
+    id          String    @id @default(uuid())
+    name        String
+    size        Float
+    extension   String    @default("")
+    type        DocTypes  @default(FILE)
+    createdAt   DateTime  @default(now())
+    directory   Directory @relation(fields: [directoryId], references: [id])
+    directoryId String
+    path        String?
 
     @@unique([directoryId, name], name: "unique_name_in_directory")
 }
