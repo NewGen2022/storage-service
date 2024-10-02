@@ -1,7 +1,23 @@
 <div id="addFileForm" class="modal">
     <form action="/file/create/new" method="POST" enctype="multipart/form-data">
         <h3>New File</h3>
-        <input type="file" name="file" id="fileUpload" required />
+
+        <div id="uploadContainer">
+            <input
+                type="file"
+                name="file"
+                id="fileUpload"
+                style="display: none"
+                required
+            />
+
+            <label for="fileUpload" class="custom-file-upload"
+                >Choose File</label
+            >
+
+            <p id="fileName">No file chosen</p>
+        </div>
+
         <div class="actions">
             <button type="submit" id="createFileBtn">Upload</button>
             <button type="button" id="cancelFileBtn">Cancel</button>
