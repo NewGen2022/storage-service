@@ -1,5 +1,10 @@
 <div id="addFileForm" class="modal">
-    <form action="/file/create/new" method="POST" enctype="multipart/form-data">
+    <form
+        id="uploadForm"
+        action="/file/create/new"
+        method="POST"
+        enctype="multipart/form-data"
+    >
         <h3>New File</h3>
 
         <div id="uploadContainer">
@@ -24,4 +29,8 @@
         </div>
         <input type="hidden" name="parentId" value="<%= currentDirId %>" />
     </form>
+
+    <div id="loadingSpinner" style="display: none">
+        <p>Uploading File...</p>
+    </div>
 </div>
