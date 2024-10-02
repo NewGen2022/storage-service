@@ -32,6 +32,7 @@
             showSuccessMsg,
             showAddDirForm,
             showAddFileForm,
+            showLoadingForm,
             showDeleteFileForm,
             showDeleteDirForm,
             changeChosenFileName,
@@ -54,6 +55,7 @@
             }
             if (addFileBtn) {
                 showAddFileForm();
+                showLoadingForm();
             }
             if (deleteFileBtn) {
                 showDeleteFileForm();
