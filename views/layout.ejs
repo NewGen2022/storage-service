@@ -34,6 +34,7 @@
             showAddFileForm,
             showDeleteFileForm,
             showDeleteDirForm,
+            changeChosenFileName,
         } from '/js/showForms.js';
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -43,6 +44,7 @@
             const addFileBtn = document.getElementById('addFileBtn');
             const deleteFileBtn = document.getElementById('deleteFileBtn');
             const deleteDirBtn = document.getElementById('deleteDirBtn');
+            const fileUploadBtn = document.getElementById('fileUpload');
 
             if (successContainer) {
                 showSuccessMsg();
@@ -58,6 +60,9 @@
             }
             if (deleteDirBtn) {
                 showDeleteDirForm();
+            }
+            if (fileUploadBtn) {
+                changeChosenFileName();
             }
         });
     </script>
