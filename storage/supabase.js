@@ -19,8 +19,6 @@ const uploadFile = async (filePath, file) => {
         throw err;
     }
 
-    console.log(`File ${file.originalname} uploaded to supabase successfully`);
-
     return data;
 };
 
