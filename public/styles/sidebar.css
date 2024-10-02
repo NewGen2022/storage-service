@@ -67,6 +67,7 @@
 
 @media (max-width: 850px) {
     #sidebar {
+        min-height: 50px;
         width: 100%;
         border-right: none;
         border-top: 2px solid var(--medium-dark-blue-gray);
