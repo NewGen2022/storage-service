@@ -145,9 +145,19 @@
     margin-top: 10px;
 }
 
+#fileName {
+    width: 200px;
+    word-wrap: break-word;
+    white-space: normal;
+}
+
 @media (max-width: 850px) {
     #main {
         width: 95%;
         margin: 10px;
+    }
+
+    #no-preview {
+        padding: 10px;
     }
 }
