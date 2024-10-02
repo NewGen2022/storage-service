@@ -67,10 +67,26 @@ const showDeleteDirForm = () => {
     });
 };
 
+const changeChosenFileName = () => {
+    const fileUploadBtn = document.getElementById('fileUpload');
+    const fileNameContainer = document.getElementById('fileName');
+
+    fileUploadBtn.addEventListener('change', function () {
+        const fileName = this.files[0] ? this.files[0].name : 'No file chosen';
+        fileNameContainer.textContent = fileName;
+
+        if (fileName !== 'No file chosen') {
+            fileNameContainer.style.color = '#ffffff';
+            fileNameContainer.style.fontWeight = 'bold';
+        }
+    });
+};
+
 export {
     showSuccessMsg,
     showAddDirForm,
     showAddFileForm,
     showDeleteFileForm,
     showDeleteDirForm,
+    changeChosenFileName,
 };
