@@ -1,7 +1,7 @@
 <% layout('layout', { dirs: dirs }) %>
 
 <div id="filePreview">
-    <% if (file.extension === 'image/jpeg') { %>
+    <% if (file.extension.startsWith('image/')) { %>
     <img
         src="https://oyjkiiwvhqlfhsqxanwj.supabase.co/storage/v1/object/public/<%= file.path %>"
         alt="<%= file.name %>"
@@ -12,7 +12,9 @@
         type="application/pdf"
     />
     <% } else { %>
-    <p>Preview not available for this file type: <%= file.name %></p>
+    <p id="no-preview">
+        Preview not available for this file type: <%= file.name %>
+    </p>
     <% } %>
 </div>
 
