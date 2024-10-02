@@ -149,19 +149,21 @@ const deleteDir = async (dirId) => {
             where: { directoryId: dirId },
         });
 
-        // Delete all subdirectories recursively
-        await prisma.directory.deleteMany({
+        // Fetch all subdirectories first
+        const subDirs = await prisma.directory.findMany({
             where: { parentId: dirId },
         });
+
+        // Recursively delete all subdirectories
+        for (const subDir of subDirs) {
+            await deleteDir(subDir.id);
+        }
 
         // Delete the directory itself
         await prisma.directory.delete({
             where: { id: dirId },
         });
 
-        console.log(
-            `Directory ${dir.name} and its contents deleted successfully.`
-        );
         return true;
     } catch (err) {
         console.error('Error deleting directory:', err);
