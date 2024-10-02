@@ -13,6 +13,8 @@ const {
 } = require('../public/js/timeFormatting');
 const { buildBreadCrumb } = require('../public/js/breadCrumb');
 const { uploadFile } = require('../storage/supabase');
+const iconv = require('iconv-lite');
+const { transliterate } = require('../public/js/transliteration');
 
 const welcomePage = (req, res) => {
     if (req.isAuthenticated()) {
@@ -110,12 +112,21 @@ const addFile = async (req, res) => {
             return res.redirect(`/directory/${parentId}`);
         }
 
+        const fileName = transliterate(
+            iconv.decode(
+                Buffer.from(uploadedFile.originalname, 'binary'),
+                'utf-8'
+            )
+        );
+
         // Upload the file to Supabase
-        const filePath = `${userId}/${uploadedFile.originalname}`; // Specify the path in the bucket
+        const filePath = `${userId}/${fileName}`; // Specify the path in the bucket
         const uploadedData = await uploadFile(filePath, uploadedFile); // Upload the file
 
+        console.log(uploadedData.fullPath);
+
         await createFile(
-            uploadedFile.originalname, // File name
+            fileName, // File name
             uploadedFile.mimetype, // File extension
             uploadedFile.size, // File size
             uploadedData.fullPath, // File path
