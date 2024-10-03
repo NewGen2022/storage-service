@@ -53,6 +53,7 @@ const showAddFileForm = () => {
     });
 };
 
+// Loading form when UPLOAD FILE
 const showLoadingForm = () => {
     const uploadForm = document.getElementById('uploadForm');
     const loadingSpinner = document.getElementById('loadingSpinner');
@@ -63,6 +64,20 @@ const showLoadingForm = () => {
         uploadForm.style.display = 'none';
 
         createFileBtn.disabled = true;
+    });
+};
+
+// Loading form when DELETE DIRECTORY
+const showDeleteDirLoading = () => {
+    const deleteDirForm = document.getElementById('deleteDirFormElement');
+    const loadingSpinner = document.getElementById('loadingSpinnerDelete');
+    const deleteBtn = document.getElementById('formDeleteDirBtn');
+
+    deleteDirForm.addEventListener('submit', function () {
+        loadingSpinner.style.display = 'flex';
+        deleteDirForm.style.display = 'none';
+
+        deleteBtn.disabled = true;
     });
 };
 
@@ -115,6 +130,7 @@ export {
     showEditDirForm,
     showAddFileForm,
     showLoadingForm,
+    showDeleteDirLoading,
     showDeleteFileForm,
     showDeleteDirForm,
     changeChosenFileName,
