@@ -164,7 +164,7 @@ const deleteDir = async (userId, dirId) => {
 
         // Recursively delete all subdirectories
         for (const subDir of subDirs) {
-            await deleteDir(subDir.id);
+            await deleteDir(userId, subDir.id);
         }
 
         // Delete the directory itself
