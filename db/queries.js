@@ -179,7 +179,24 @@ const deleteDir = async (userId, dirId) => {
     }
 };
 
-//
+// UPDATE QUERIES
+const updateDirName = (dirId, newName) => {
+    try {
+        const updatedDir = prisma.directory.update({
+            where: { id: dirId },
+            data: {
+                name: newName,
+            },
+        });
+
+        return updatedDir;
+    } catch (err) {
+        console.error('Error updating directory:', err);
+        throw err;
+    }
+};
+
+// OTHER QUERIES
 const directoryExists = async (directoryId) => {
     const directory = await prisma.directory.findUnique({
         where: { id: directoryId },
@@ -197,5 +214,6 @@ module.exports = {
     getDirById,
     deleteFile,
     deleteDir,
+    updateDirName,
     directoryExists,
 };
