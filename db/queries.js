@@ -49,7 +49,6 @@ const createFile = async (name, extension, size, path, parentId = null) => {
             },
         });
 
-        console.log(`File ${name} created successfully`);
         return file;
     } catch (err) {
         console.error('Error creating file:', err);
@@ -126,14 +125,13 @@ const getFileById = async (fileId) => {
 // DELETE QUERIES
 const deleteFile = async (fileId) => {
     try {
-        const file = await getFileById(fileId);
+        await getFileById(fileId);
 
         // Delete the file
         await prisma.file.delete({
             where: { id: fileId },
         });
 
-        console.log(`File ${file.name} deleted successfully.`);
         return true;
     } catch (err) {
         console.error('Error deleting file:', err);
