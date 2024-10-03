@@ -5,7 +5,7 @@ const supabaseKey = process.env.SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 const BUCKET_NAME = 'odin-storage-service-files';
 
-const uploadFile = async (filePath, file) => {
+const uploadFileSB = async (filePath, file) => {
     const fileBuffer = file.buffer;
 
     const { data, err } = await supabase.storage
@@ -22,4 +22,17 @@ const uploadFile = async (filePath, file) => {
     return data;
 };
 
-module.exports = { uploadFile };
+const deleteFileSB = async (filePath) => {
+    const { data, err } = await supabase.storage
+        .from(BUCKET_NAME)
+        .remove([filePath]);
+
+    if (err) {
+        console.error('Error deleting file:', err);
+        throw err;
+    }
+
+    return data;
+};
+
+module.exports = { uploadFileSB, deleteFileSB };
