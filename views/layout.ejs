@@ -34,7 +34,8 @@
         <div id="container">
             <!-- SIDEBAR template -->
             <% if(currentUser) { %> <%- include('sidebar', { dirs: dirs, fileId:
-            file.id, fileName: file.name, dirId: currentDirId}) %> <% } %>
+            file.id, fileName: file.name, dirId: currentDirId, dirName:
+            dirName}) %> <% } %>
 
             <!-- MAIN CONTENT template -->
             <div id="main"><%- body %></div>
@@ -45,6 +46,7 @@
         import {
             showSuccessMsg,
             showAddDirForm,
+            showEditDirForm,
             showAddFileForm,
             showLoadingForm,
             showDeleteFileForm,
@@ -56,29 +58,24 @@
             const successContainer =
                 document.getElementById('success-container');
             const addDirBtn = document.getElementById('addDirBtn');
-            const addFileBtn = document.getElementById('addFileBtn');
             const deleteFileBtn = document.getElementById('deleteFileBtn');
             const deleteDirBtn = document.getElementById('deleteDirBtn');
-            const fileUploadBtn = document.getElementById('fileUpload');
 
             if (successContainer) {
                 showSuccessMsg();
             }
             if (addDirBtn) {
                 showAddDirForm();
-            }
-            if (addFileBtn) {
                 showAddFileForm();
                 showLoadingForm();
+                changeChosenFileName();
             }
             if (deleteFileBtn) {
                 showDeleteFileForm();
             }
             if (deleteDirBtn) {
+                showEditDirForm();
                 showDeleteDirForm();
-            }
-            if (fileUploadBtn) {
-                changeChosenFileName();
             }
         });
     </script>
