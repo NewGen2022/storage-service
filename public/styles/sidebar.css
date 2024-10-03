@@ -61,8 +61,8 @@
 }
 
 #sidebar .edit:hover {
-    background-color: rgb(138, 103, 0);
-    border-color: rgb(255, 191, 0);
+    background-color: var(--dark-yellow);
+    border-color: var(--gold);
 }
 
 @media (max-width: 850px) {
