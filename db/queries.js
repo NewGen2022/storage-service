@@ -1,4 +1,5 @@
 const prisma = require('../db/prismaClient');
+const { deleteFileSB } = require('../storage/supabase');
 
 // CREATE QUERIES
 const createUser = async (username, password) => {
@@ -140,11 +141,20 @@ const deleteFile = async (fileId) => {
     }
 };
 
-const deleteDir = async (dirId) => {
+const deleteDir = async (userId, dirId) => {
     try {
-        const dir = await getDirById(dirId);
+        // Fetch all files within the directory first
+        const files = await prisma.file.findMany({
+            where: { directoryId: dirId },
+        });
 
-        // Delete all files within the directory
+        // Delete each file from Supabase
+        for (const file of files) {
+            const filePath = `${userId}/${file.name}`;
+            await deleteFileSB(filePath);
+        }
+
+        // Delete all files in the database
         await prisma.file.deleteMany({
             where: { directoryId: dirId },
         });
