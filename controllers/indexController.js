@@ -92,6 +92,7 @@ const addDir = async (req, res) => {
 
     try {
         await createDirectory(dirName, userId, parentId);
+        req.flash('success', 'Directory created successfully');
         res.redirect(`/directory/${parentId}`);
     } catch (err) {
         console.error('Error creating directory:', err);
@@ -136,6 +137,7 @@ const addFile = async (req, res) => {
             parentId // Parent directory ID
         );
 
+        req.flash('success', 'File uploaded successfully');
         res.redirect(`/directory/${parentId}`);
     } catch (err) {
         console.error('Error creating file:', err);
