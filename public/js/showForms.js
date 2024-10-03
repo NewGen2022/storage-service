@@ -25,6 +25,20 @@ const showAddDirForm = () => {
     });
 };
 
+const showEditDirForm = () => {
+    const editDirForm = document.getElementById('editDirForm');
+    const editDirBtn = document.getElementById('editDirBtn');
+    const cancelEditDirBtn = document.getElementById('cancelEditDirBtn');
+
+    editDirBtn.addEventListener('click', () => {
+        editDirForm.style.display = 'flex';
+    });
+
+    cancelEditDirBtn.addEventListener('click', () => {
+        editDirForm.style.display = 'none';
+    });
+};
+
 const showAddFileForm = () => {
     const addFileForm = document.getElementById('addFileForm');
     const addFileBtn = document.getElementById('addFileBtn');
@@ -98,6 +112,7 @@ const changeChosenFileName = () => {
 export {
     showSuccessMsg,
     showAddDirForm,
+    showEditDirForm,
     showAddFileForm,
     showLoadingForm,
     showDeleteFileForm,
