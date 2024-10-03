@@ -134,6 +134,7 @@
 
 #filePreview img {
     max-height: 450px;
+    min-height: 100px;
 }
 
 #filePreview embed {
