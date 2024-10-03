@@ -5,6 +5,7 @@ const {
     createFile,
     deleteFile,
     deleteDir,
+    updateDirName,
     directoryExists,
 } = require('../db/queries');
 const {
@@ -24,6 +25,7 @@ const welcomePage = (req, res) => {
     }
 };
 
+// GET CONTROLLERS
 const indexRender = async (req, res) => {
     try {
         const userId = req.user.id;
@@ -48,6 +50,7 @@ const indexRender = async (req, res) => {
             isDir,
             breadCrumb,
             file: {},
+            dirName: currentDir.name,
         });
     } catch (err) {
         console.error('Error fetching user directories:', err);
@@ -80,6 +83,7 @@ const fileInfoRender = async (req, res) => {
     }
 };
 
+// CREATE CONTROLLERS
 const addDir = async (req, res) => {
     const dirName = req.body.dirName;
     const userId = req.user.id;
@@ -139,6 +143,7 @@ const addFile = async (req, res) => {
     }
 };
 
+// DELETE CONTROLLERS
 const deleteFileController = async (req, res) => {
     const fileId = req.body.fileId;
     const parentId = req.body.parentId;
@@ -178,6 +183,22 @@ const deleteDirController = async (req, res) => {
     }
 };
 
+// UPDATE CONTROLLERS
+const editDirController = async (req, res) => {
+    const dirId = req.params.dirId;
+    const newDirName = req.body.newDirName;
+
+    try {
+        await updateDirName(dirId, newDirName);
+        req.flash('success', "Directory's name updated successfully");
+        res.redirect(`/directory/${dirId}`);
+    } catch (err) {
+        console.error('Error deleting directory:', err);
+        req.flash('error', 'Error updating directory');
+        res.redirect(`/directory/${dirId}`);
+    }
+};
+
 module.exports = {
     welcomePage,
     indexRender,
@@ -186,4 +207,5 @@ module.exports = {
     addFile,
     deleteFileController,
     deleteDirController,
+    editDirController,
 };
