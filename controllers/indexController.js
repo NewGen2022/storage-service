@@ -76,6 +76,7 @@ const fileInfoRender = async (req, res) => {
             dirs: dirs,
             currentDirId: file.directoryId,
             isDir: false,
+            dirName: null,
         });
     } catch (err) {
         console.error('Error rendering file information', err);
