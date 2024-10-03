@@ -23,16 +23,19 @@ const uploadFileSB = async (filePath, file) => {
 };
 
 const deleteFileSB = async (filePath) => {
-    const { data, err } = await supabase.storage
-        .from(BUCKET_NAME)
-        .remove([filePath]);
+    try {
+        const { error } = await supabase.storage
+            .from(BUCKET_NAME)
+            .remove([filePath]);
 
-    if (err) {
-        console.error('Error deleting file:', err);
+        if (error) {
+            console.error('Error deleting file from Supabase:', error.message);
+            throw new Error('Supabase file deletion failed');
+        }
+    } catch (err) {
+        console.error('Error during Supabase file deletion:', err);
         throw err;
     }
-
-    return data;
 };
 
 module.exports = { uploadFileSB, deleteFileSB };
