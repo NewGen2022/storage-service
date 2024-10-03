@@ -14,7 +14,8 @@
 #addDirForm form,
 #addFileForm form,
 #deleteFileForm form,
-#deleteDirForm form {
+#deleteDirForm form,
+#editDirForm form {
     background-color: #303030;
     padding: 20px;
     border-radius: 5px;
@@ -34,21 +35,33 @@
     width: clamp(90px, 20%, 150px);
 }
 
-#cancelDirBtn:hover,
-#cancelFileBtn:hover,
-#formDeleteFileBtn:hover,
-#cancelDeleteFileBtn:hover,
-#formDeleteDirBtn:hover,
-#cancelDeleteDirBtn:hover {
+.cancel-btn:hover {
     border-color: var(--red-pink);
     background-color: var(--dark-wine-red);
 }
 
-.delete-text {
-    color: var(--red-pink);
-    font-weight: 600;
+.edit-input:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 10px var(--dark-yellow);
+}
+.edit-button:hover {
+    background-color: var(--dark-yellow);
+    border-color: var(--gold);
 }
 
+.create-text {
+    color: var(--light-blue);
+}
+
+.delete-text {
+    color: var(--red-pink);
+}
+
+.edit-text {
+    color: var(--gold);
+}
+
+/* Upload container styles */
 #uploadContainer {
     display: flex;
     flex-direction: column;
