@@ -94,7 +94,8 @@
     box-shadow: 0 0 10px var(--teal-blue);
 }
 
-#loadingSpinner {
+#loadingSpinner,
+#loadingSpinnerDelete {
     position: fixed;
     top: 0;
     left: 0;
