@@ -8,8 +8,12 @@
         <input type="hidden" name="fileId" value="<%= fileId %>" />
         <input type="hidden" name="fileName" value="<%= fileName %>" />
         <div class="actions">
-            <button type="submit" id="formDeleteFileBtn">Delete</button>
-            <button type="button" id="cancelDeleteFileBtn">Cancel</button>
+            <button type="submit" class="cancel" id="formDeleteFileBtn">
+                Delete
+            </button>
+            <button type="button" class="cancel" id="cancelDeleteFileBtn">
+                Cancel
+            </button>
         </div>
         <input type="hidden" name="parentId" value="<%= currentDirId %>" />
     </form>
