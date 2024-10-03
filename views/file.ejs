@@ -20,7 +20,7 @@
 
 <div id="fileInfo">
     <div id="fileInfoName"><b>Name:</b> <%= file.name %></div>
-    <div id="fileInfoSize"><b>Size:</b> <%= file.size %> KB</div>
+    <div id="fileInfoSize"><b>Size:</b> <%= formatFileSize(file.size) %></div>
     <div id="fileInfoExt"><b>Type:</b> <%= file.extension %></div>
     <div id="fileInfoUploaded">
         <b>Uploaded:</b> <%= formatDate(file.createdAt) %>

@@ -12,6 +12,7 @@ const {
     formatDate,
     formatDateDetailed,
 } = require('../public/js/timeFormatting');
+const { formatFileSize } = require('../public/js/formatFileSize');
 const { buildBreadCrumb } = require('../public/js/breadCrumb');
 const { uploadFileSB, deleteFileSB } = require('../storage/supabase');
 const iconv = require('iconv-lite');
@@ -51,6 +52,7 @@ const indexRender = async (req, res) => {
             breadCrumb,
             file: {},
             dirName: currentDir.name,
+            formatFileSize,
         });
     } catch (err) {
         console.error('Error fetching user directories:', err);
@@ -77,6 +79,7 @@ const fileInfoRender = async (req, res) => {
             currentDirId: file.directoryId,
             isDir: false,
             dirName: null,
+            formatFileSize: formatFileSize,
         });
     } catch (err) {
         console.error('Error rendering file information', err);

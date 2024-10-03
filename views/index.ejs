@@ -57,7 +57,7 @@
             </svg>
             <%= file.name %>
         </div>
-        <div class="grid-body-size"><%= file.size %> KB</div>
+        <div class="grid-body-size"><%= formatFileSize(file.size) %></div>
         <div class="grid-body-created"><%= formatDate(file.createdAt) %></div>
     </a>
     <% }) %> <% } %> <% } else { %>
