@@ -15,6 +15,20 @@
         <link rel="stylesheet" href="/styles/flashMsgs.css" />
     </head>
     <body>
+        <div id="success-container">
+            <% if(success) { %>
+            <div id="success-msg"><%= success %></div>
+            <div id="progress-bar"></div>
+            <% } %>
+        </div>
+
+        <div id="error-container">
+            <% if(error) { %>
+            <div id="error-msg"><%= error %></div>
+            <div id="progress-bar"></div>
+            <% } %>
+        </div>
+        <!--  -->
         <%- include('header') %>
 
         <div id="container">
