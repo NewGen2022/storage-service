@@ -4,9 +4,8 @@
     top: 20vh;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #084600;
-    border: 2px solid #2ebf1b;
-    border-bottom: 1px solid #2ebf1b;
+    background-color: var(--dark-gray);
+    border: 2px solid var(--light-gray);
     color: #ffffff;
     padding: 8px 20px;
     border-radius: 5px;
