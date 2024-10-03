@@ -12,7 +12,7 @@ const {
     formatDateDetailed,
 } = require('../public/js/timeFormatting');
 const { buildBreadCrumb } = require('../public/js/breadCrumb');
-const { uploadFile } = require('../storage/supabase');
+const { uploadFileSB, deleteFileSB } = require('../storage/supabase');
 const iconv = require('iconv-lite');
 const { transliterate } = require('../public/js/transliteration');
 
@@ -120,10 +120,8 @@ const addFile = async (req, res) => {
         );
 
         // Upload the file to Supabase
-        const filePath = `${userId}/${fileName}`; // Specify the path in the bucket
-        const uploadedData = await uploadFile(filePath, uploadedFile); // Upload the file
-
-        console.log(uploadedData.fullPath);
+        const filePath = `${userId}/${fileName}`;
+        const uploadedData = await uploadFileSB(filePath, uploadedFile);
 
         await createFile(
             fileName, // File name
@@ -133,7 +131,6 @@ const addFile = async (req, res) => {
             parentId // Parent directory ID
         );
 
-        console.log('Uploaded File:', uploadedFile);
         res.redirect(`/directory/${parentId}`);
     } catch (err) {
         console.error('Error creating file:', err);
@@ -145,12 +142,19 @@ const addFile = async (req, res) => {
 const deleteFileController = async (req, res) => {
     const fileId = req.body.fileId;
     const parentId = req.body.parentId;
+    const userId = req.user.id;
+    const fileName = req.body.fileName;
+
+    const filePath = `${userId}/${fileName}`;
 
     try {
+        await deleteFileSB(filePath);
         await deleteFile(fileId);
+        req.flash('success', 'File deleted successfully');
         res.redirect(`/directory/${parentId}`);
     } catch (err) {
         console.error('Error deleting file:', err);
+        req.flash('error', 'Error deleting file');
         res.redirect(`/directory/${parentId}`);
     }
 };
@@ -158,12 +162,18 @@ const deleteFileController = async (req, res) => {
 const deleteDirController = async (req, res) => {
     const dirId = req.body.dirId;
     const parentId = req.body.parentId;
+    const userId = req.user.id;
 
     try {
-        await deleteDir(dirId);
+        await deleteDir(userId, dirId);
+        req.flash(
+            'success',
+            'Directory and all of its contents deleted successfully'
+        );
         res.redirect(`/directory/${parentId}`);
     } catch (err) {
         console.error('Error deleting directory:', err);
+        req.flash('error', 'Error deleting directory and all of its contents');
         res.redirect(`/directory/${parentId}`);
     }
 };
