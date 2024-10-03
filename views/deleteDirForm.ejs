@@ -1,5 +1,9 @@
 <div id="deleteDirForm" class="modal">
-    <form action="/directory/delete/<%= dirId %>" method="POST">
+    <form
+        action="/directory/delete/<%= dirId %>"
+        id="deleteDirFormElement"
+        method="POST"
+    >
         <h3 class="delete-text">Delete Directory</h3>
         <label for="dirName"
             >Are you sure you want to
@@ -21,4 +25,8 @@
             value="<%= currentDir.parentId %>"
         />
     </form>
+
+    <div id="loadingSpinnerDelete" style="display: none">
+        <p>Deleting Directory...</p>
+    </div>
 </div>
