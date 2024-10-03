@@ -1,6 +1,6 @@
 <div id="editDirForm" class="modal">
     <form action="/directory/update/<%= dirId %>" method="POST">
-        <h3>Update Directory</h3>
+        <h3 class="edit-text">Edit Directory</h3>
         <label for="dirName">Directory Name</label>
         <input
             type="text"
@@ -8,11 +8,14 @@
             id="dirName"
             placeholder="New Directory Name"
             value="<%= dirName %>"
+            class="edit-input"
             required
         />
         <div class="actions">
-            <button type="submit" id="formEditDirBtn">Update</button>
-            <button type="button" class="cancel" id="cancelEditDirBtn">
+            <button type="submit" class="edit-button" id="formEditDirBtn">
+                Update
+            </button>
+            <button type="button" class="cancel-btn" id="cancelEditDirBtn">
                 Cancel
             </button>
         </div>
