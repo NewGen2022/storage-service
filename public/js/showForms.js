@@ -124,6 +124,16 @@ const changeChosenFileName = () => {
     });
 };
 
+const submitDownloadFileForm = () => {
+    const downloadBtn = document.getElementById('downloadFileBtn');
+
+    downloadBtn.addEventListener('click', function () {
+        const downloadForm = document.getElementById('downloadFileElement');
+
+        downloadForm.submit();
+    });
+};
+
 export {
     showSuccessMsg,
     showAddDirForm,
@@ -134,4 +144,5 @@ export {
     showDeleteFileForm,
     showDeleteDirForm,
     changeChosenFileName,
+    submitDownloadFileForm,
 };
