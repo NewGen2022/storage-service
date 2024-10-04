@@ -196,6 +196,23 @@ const updateDirName = (dirId, newName) => {
     }
 };
 
+const updateFileName = (fileId, newName, newPath) => {
+    try {
+        const updatedFile = prisma.file.update({
+            where: { id: fileId },
+            data: {
+                name: newName,
+                path: newPath,
+            },
+        });
+
+        return updatedFile;
+    } catch (err) {
+        console.error('Error updating file:', err);
+        throw err;
+    }
+};
+
 // OTHER QUERIES
 const directoryExists = async (directoryId) => {
     const directory = await prisma.directory.findUnique({
@@ -215,5 +232,6 @@ module.exports = {
     deleteFile,
     deleteDir,
     updateDirName,
+    updateFileName,
     directoryExists,
 };
