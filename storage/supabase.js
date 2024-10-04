@@ -1,4 +1,5 @@
 const { createClient } = require('@supabase/supabase-js');
+const { file } = require('../db/prismaClient');
 
 const supabaseUrl = process.env.SUPABASE_PROJECT_URL;
 const supabaseKey = process.env.SUPABASE_ANON_KEY;
@@ -38,4 +39,22 @@ const deleteFileSB = async (filePath) => {
     }
 };
 
-module.exports = { uploadFileSB, deleteFileSB };
+const downloadFileSB = async (filePath) => {
+    try {
+        const { data, error } = await supabase.storage
+            .from(BUCKET_NAME)
+            .download(filePath);
+
+        if (error) {
+            console.error('Error downloading file from Supabase:', error);
+            throw new Error('Supabase file downloading failed');
+        }
+
+        return data;
+    } catch (err) {
+        console.error('Error during Supabase file downloading:', err);
+        throw err;
+    }
+};
+
+module.exports = { uploadFileSB, deleteFileSB, downloadFileSB };
