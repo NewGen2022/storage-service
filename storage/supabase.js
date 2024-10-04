@@ -1,5 +1,4 @@
 const { createClient } = require('@supabase/supabase-js');
-const { file } = require('../db/prismaClient');
 
 const supabaseUrl = process.env.SUPABASE_PROJECT_URL;
 const supabaseKey = process.env.SUPABASE_ANON_KEY;
@@ -57,4 +56,28 @@ const downloadFileSB = async (filePath) => {
     }
 };
 
-module.exports = { uploadFileSB, deleteFileSB, downloadFileSB };
+const updateFileNameSB = async (oldFilePath, newFilePath) => {
+    const fileData = await downloadFileSB(oldFilePath);
+
+    // Upload the file with the new name
+    await deleteFileSB(oldFilePath);
+
+    const arrayBuffer = await fileData.arrayBuffer();
+    const fileBuffer = Buffer.from(arrayBuffer);
+
+    const file = {
+        buffer: fileBuffer,
+        mimetype: fileData.type,
+    };
+
+    const updatedFile = await uploadFileSB(newFilePath, file);
+
+    return updatedFile;
+};
+
+module.exports = {
+    uploadFileSB,
+    deleteFileSB,
+    downloadFileSB,
+    updateFileNameSB,
+};
