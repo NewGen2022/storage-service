@@ -6,6 +6,7 @@ const {
     deleteFile,
     deleteDir,
     updateDirName,
+    updateFileName,
     directoryExists,
 } = require('../db/queries');
 const {
@@ -13,11 +14,13 @@ const {
     formatDateDetailed,
 } = require('../public/js/timeFormatting');
 const { formatFileSize } = require('../public/js/formatFileSize');
+const { getFileExtension } = require('../public/js/getFileExt');
 const { buildBreadCrumb } = require('../public/js/breadCrumb');
 const {
     uploadFileSB,
     deleteFileSB,
     downloadFileSB,
+    updateFileNameSB,
 } = require('../storage/supabase');
 const iconv = require('iconv-lite');
 const { transliterate } = require('../public/js/transliteration');
@@ -209,6 +212,37 @@ const editDirController = async (req, res) => {
     }
 };
 
+const editFileController = async (req, res) => {
+    const fileId = req.params.fileId;
+    const userId = req.user.id;
+
+    const oldFileName = req.body.oldFileName;
+    const extension = getFileExtension(oldFileName);
+
+    const newFileName = transliterate(req.body.newFileName) + '.' + extension;
+
+    if (oldFileName !== newFileName) {
+        try {
+            const oldFilePath = `${userId}/${oldFileName}`;
+            const newFilePath = `${userId}/${newFileName}`;
+
+            const updatedFile = await updateFileNameSB(
+                oldFilePath,
+                newFilePath
+            );
+            await updateFileName(fileId, newFileName, updatedFile.fullPath);
+            req.flash('success', "File's name updated successfully");
+        } catch (err) {
+            console.error('Error deleting file:', err);
+            req.flash('error', 'Error updating file');
+        } finally {
+            res.redirect(`/file/${fileId}`);
+        }
+    } else {
+        res.redirect(`/file/${fileId}`);
+    }
+};
+
 // DOWNLOAD CONTROLLERS
 const downloadFileController = async (req, res) => {
     const userId = req.user.id;
@@ -246,5 +280,6 @@ module.exports = {
     deleteFileController,
     deleteDirController,
     editDirController,
+    editFileController,
     downloadFileController,
 };
