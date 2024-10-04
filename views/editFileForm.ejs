@@ -1,0 +1,29 @@
+<div id="editFileForm" class="modal">
+    <form action="/file/update/<%= fileId %>" method="POST">
+        <h3 class="edit-text">Edit File</h3>
+        <label for="fileName">File Name</label>
+        <input
+            type="text"
+            name="newFileName"
+            id="fileNameInput"
+            placeholder="New File Name"
+            value="<%= fileName %>"
+            class="edit-input"
+            required
+        />
+        <input
+            type="hidden"
+            name="oldFileName"
+            id="fileNameInputPrev"
+            value="<%= fileName %>"
+        />
+        <div class="actions">
+            <button type="submit" class="edit-button" id="formEditFileBtn">
+                Update
+            </button>
+            <button type="button" class="cancel-btn" id="cancelEditFileBtn">
+                Cancel
+            </button>
+        </div>
+    </form>
+</div>
