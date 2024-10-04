@@ -48,6 +48,7 @@
             showAddDirForm,
             showEditDirForm,
             showAddFileForm,
+            showEditFileForm,
             showLoadingForm,
             showDeleteDirLoading,
             showDeleteFileForm,
@@ -75,6 +76,7 @@
             if (deleteFileBtn) {
                 showDeleteFileForm();
                 submitDownloadFileForm();
+                showEditFileForm();
             }
             if (deleteDirBtn) {
                 showEditDirForm();
