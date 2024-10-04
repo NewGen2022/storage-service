@@ -53,6 +53,7 @@
             showDeleteFileForm,
             showDeleteDirForm,
             changeChosenFileName,
+            submitDownloadFileForm,
         } from '/js/showForms.js';
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -73,6 +74,7 @@
             }
             if (deleteFileBtn) {
                 showDeleteFileForm();
+                submitDownloadFileForm();
             }
             if (deleteDirBtn) {
                 showEditDirForm();
