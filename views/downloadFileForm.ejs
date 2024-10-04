@@ -1,0 +1,15 @@
+<div id="downloadFileForm" class="modal">
+    <form
+        id="downloadFileElement"
+        action="/file/download/<%= fileId %>"
+        method="POST"
+    >
+        <input
+            type="text"
+            id="fileName"
+            name="fileName"
+            value="<%= fileName %>"
+            required
+        />
+    </form>
+</div>
