@@ -14,7 +14,11 @@ const {
 } = require('../public/js/timeFormatting');
 const { formatFileSize } = require('../public/js/formatFileSize');
 const { buildBreadCrumb } = require('../public/js/breadCrumb');
-const { uploadFileSB, deleteFileSB } = require('../storage/supabase');
+const {
+    uploadFileSB,
+    deleteFileSB,
+    downloadFileSB,
+} = require('../storage/supabase');
 const iconv = require('iconv-lite');
 const { transliterate } = require('../public/js/transliteration');
 
@@ -205,6 +209,34 @@ const editDirController = async (req, res) => {
     }
 };
 
+// DOWNLOAD CONTROLLERS
+const downloadFileController = async (req, res) => {
+    const userId = req.user.id;
+    const fileName = req.body.fileName;
+    const fileId = req.params.fileId;
+    const filePath = `${userId}/${fileName}`;
+
+    try {
+        const data = await downloadFileSB(filePath);
+
+        const buffer = await data.arrayBuffer();
+
+        // Set response headers for file download
+        res.setHeader(
+            'Content-Disposition',
+            `attachment; filename="${fileName}"`
+        );
+        res.setHeader('Content-Type', data.type);
+
+        res.send(Buffer.from(buffer));
+        req.flash('success', 'File downloaded successfully');
+    } catch (err) {
+        console.error('Error downloading file:', err);
+        req.flash('error', 'Error downloading file');
+        res.redirect(`/file/${fileId}`);
+    }
+};
+
 module.exports = {
     welcomePage,
     indexRender,
@@ -214,4 +246,5 @@ module.exports = {
     deleteFileController,
     deleteDirController,
     editDirController,
+    downloadFileController,
 };
