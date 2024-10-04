@@ -13,6 +13,7 @@ const {
     deleteFileController,
     deleteDirController,
     editDirController,
+    downloadFileController,
 } = require('../controllers/indexController');
 const { getRootDir } = require('../db/queries');
 
@@ -39,5 +40,8 @@ router.post('/directory/delete/:id', isAuth, deleteDirController);
 
 // UPDATE ROUTES
 router.post('/directory/update/:dirId', isAuth, editDirController);
+
+// DOWNLOAD ROUTES
+router.post('/file/download/:fileId', isAuth, downloadFileController);
 
 module.exports = router;
