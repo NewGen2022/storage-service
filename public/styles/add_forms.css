@@ -15,7 +15,8 @@
 #addFileForm form,
 #deleteFileForm form,
 #deleteDirForm form,
-#editDirForm form {
+#editDirForm form,
+#editFileForm form {
     background-color: #303030;
     padding: 20px;
     border-radius: 5px;
