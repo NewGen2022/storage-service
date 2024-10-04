@@ -53,6 +53,20 @@ const showAddFileForm = () => {
     });
 };
 
+const showEditFileForm = () => {
+    const editFileForm = document.getElementById('editFileForm');
+    const editFileBtn = document.getElementById('editFileBtn');
+    const cancelEditFileBtn = document.getElementById('cancelEditFileBtn');
+
+    editFileBtn.addEventListener('click', () => {
+        editFileForm.style.display = 'flex';
+    });
+
+    cancelEditFileBtn.addEventListener('click', () => {
+        editFileForm.style.display = 'none';
+    });
+};
+
 // Loading form when UPLOAD FILE
 const showLoadingForm = () => {
     const uploadForm = document.getElementById('uploadForm');
@@ -139,6 +153,7 @@ export {
     showAddDirForm,
     showEditDirForm,
     showAddFileForm,
+    showEditFileForm,
     showLoadingForm,
     showDeleteDirLoading,
     showDeleteFileForm,
