@@ -130,6 +130,7 @@
     background-color: rgba(128, 128, 128, 0.481);
     border-radius: 5px;
     width: 100%;
+    margin-top: 15px;
 }
 
 #filePreview img {
