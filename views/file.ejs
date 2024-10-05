@@ -1,5 +1,15 @@
 <% layout('layout', { dirs: dirs }) %>
 
+<div id="breadcrumb">
+    <% breadCrumb.forEach((item, index) => { %>
+    <a
+        href="/<%= (index === breadCrumb.length - 1) ? 'file' : 'directory'  %>/<%= item.id %>"
+        id="<%= (index === breadCrumb.length - 1) ? 'last' : '' %>"
+        ><%= item.name %></a
+    >
+    <% if (index < breadCrumb.length - 1) { %> > <% } %> <% }) %>
+</div>
+
 <div id="filePreview">
     <% if (file.extension.startsWith('image/')) { %>
     <img
