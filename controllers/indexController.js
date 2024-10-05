@@ -15,7 +15,10 @@ const {
 } = require('../public/js/timeFormatting');
 const { formatFileSize } = require('../public/js/formatFileSize');
 const { getFileExtension } = require('../public/js/getFileExt');
-const { buildBreadCrumb } = require('../public/js/breadCrumb');
+const {
+    buildBreadCrumb,
+    buildBreadCrumbForFile,
+} = require('../public/js/breadCrumb');
 const {
     uploadFileSB,
     deleteFileSB,
@@ -79,14 +82,17 @@ const fileInfoRender = async (req, res) => {
         const file = await getFileById(fileId);
         const dirs = await getAllUserDirectories(userId);
 
+        const breadCrumb = await buildBreadCrumbForFile(file);
+
         res.render('file', {
-            file: file,
+            file,
             formatDate: formatDateDetailed,
-            dirs: dirs,
+            dirs,
             currentDirId: file.directoryId,
             isDir: false,
             dirName: null,
-            formatFileSize: formatFileSize,
+            formatFileSize,
+            breadCrumb,
         });
     } catch (err) {
         console.error('Error rendering file information', err);
