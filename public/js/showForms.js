@@ -113,19 +113,19 @@ const showEditFileLoading = () => {
     });
 };
 
-// Loading form when EDIT FILE
+// Loading form when DELETE FILE
 const showDeleteFileLoading = () => {
-    const editFileForm = document.getElementById('deleteFileFormElement');
-    const loadingSpinnerEditFile = document.getElementById(
+    const deleteFileForm = document.getElementById('deleteFileFormElement');
+    const loadingSpinnerDeleteFile = document.getElementById(
         'loadingSpinnerDeleteFile'
     );
-    const editFileBtn = document.getElementById('formDeleteFileBtn');
+    const deleteFileBtn = document.getElementById('formDeleteFileBtn');
 
-    editFileForm.addEventListener('submit', function () {
-        loadingSpinnerEditFile.style.display = 'flex';
-        editFileForm.style.display = 'none';
+    deleteFileForm.addEventListener('submit', function () {
+        loadingSpinnerDeleteFile.style.display = 'flex';
+        deleteFileBtn.style.display = 'none';
 
-        editFileBtn.disabled = true;
+        deleteFileForm.disabled = true;
     });
 };
 
@@ -176,7 +176,7 @@ const submitDownloadFileForm = () => {
     const downloadBtn = document.getElementById('downloadFileBtn');
 
     downloadBtn.addEventListener('click', function () {
-        const downloadForm = document.getElementById('downloadFileElement');
+        const downloadForm = document.getElementById('downloadFileFormElement');
 
         downloadForm.submit();
     });
