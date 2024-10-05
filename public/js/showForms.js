@@ -95,6 +95,22 @@ const showDeleteDirLoading = () => {
     });
 };
 
+// Loading form when EDIT FILE
+const showEditFileLoading = () => {
+    const editFileForm = document.getElementById('editFileFormElement');
+    const loadingSpinnerEditFile = document.getElementById(
+        'loadingSpinnerEditFile'
+    );
+    const editFileBtn = document.getElementById('formEditFileBtn');
+
+    editFileForm.addEventListener('submit', function () {
+        loadingSpinnerEditFile.style.display = 'flex';
+        editFileForm.style.display = 'none';
+
+        editFileBtn.disabled = true;
+    });
+};
+
 const showDeleteFileForm = () => {
     const deleteFileForm = document.getElementById('deleteFileForm');
     const deleteFileBtn = document.getElementById('deleteFileBtn');
@@ -156,6 +172,7 @@ export {
     showEditFileForm,
     showLoadingForm,
     showDeleteDirLoading,
+    showEditFileLoading,
     showDeleteFileForm,
     showDeleteDirForm,
     changeChosenFileName,

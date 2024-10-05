@@ -1,5 +1,9 @@
 <div id="editFileForm" class="modal">
-    <form action="/file/update/<%= fileId %>" method="POST">
+    <form
+        id="editFileFormElement"
+        action="/file/update/<%= fileId %>"
+        method="POST"
+    >
         <h3 class="edit-text">Edit File</h3>
         <label for="fileName">File Name</label>
         <input
@@ -26,4 +30,12 @@
             </button>
         </div>
     </form>
+
+    <div
+        id="loadingSpinnerEditFile"
+        class="loadingSpinner"
+        style="display: none"
+    >
+        <p>Updating File...</p>
+    </div>
 </div>
