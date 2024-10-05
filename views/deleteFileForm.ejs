@@ -1,5 +1,9 @@
 <div id="deleteFileForm" class="modal">
-    <form action="/file/delete/<%= fileId %>" method="POST">
+    <form
+        action="/file/delete/<%= fileId %>"
+        id="deleteFileFormElement"
+        method="POST"
+    >
         <h3 class="delete-text">Delete File</h3>
         <label for="fileName"
             >Are you sure you want to
@@ -17,4 +21,12 @@
         </div>
         <input type="hidden" name="parentId" value="<%= currentDirId %>" />
     </form>
+
+    <div
+        id="loadingSpinnerDeleteFile"
+        class="loadingSpinner"
+        style="display: none"
+    >
+        <p>Deleting File...</p>
+    </div>
 </div>

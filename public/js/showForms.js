@@ -84,11 +84,13 @@ const showLoadingForm = () => {
 // Loading form when DELETE DIRECTORY
 const showDeleteDirLoading = () => {
     const deleteDirForm = document.getElementById('deleteDirFormElement');
-    const loadingSpinner = document.getElementById('loadingSpinnerDelete');
+    const loadingSpinnerDeleteDir = document.getElementById(
+        'loadingSpinnerDeleteDir'
+    );
     const deleteBtn = document.getElementById('formDeleteDirBtn');
 
     deleteDirForm.addEventListener('submit', function () {
-        loadingSpinner.style.display = 'flex';
+        loadingSpinnerDeleteDir.style.display = 'flex';
         deleteDirForm.style.display = 'none';
 
         deleteBtn.disabled = true;
@@ -102,6 +104,22 @@ const showEditFileLoading = () => {
         'loadingSpinnerEditFile'
     );
     const editFileBtn = document.getElementById('formEditFileBtn');
+
+    editFileForm.addEventListener('submit', function () {
+        loadingSpinnerEditFile.style.display = 'flex';
+        editFileForm.style.display = 'none';
+
+        editFileBtn.disabled = true;
+    });
+};
+
+// Loading form when EDIT FILE
+const showDeleteFileLoading = () => {
+    const editFileForm = document.getElementById('deleteFileFormElement');
+    const loadingSpinnerEditFile = document.getElementById(
+        'loadingSpinnerDeleteFile'
+    );
+    const editFileBtn = document.getElementById('formDeleteFileBtn');
 
     editFileForm.addEventListener('submit', function () {
         loadingSpinnerEditFile.style.display = 'flex';
@@ -173,6 +191,7 @@ export {
     showLoadingForm,
     showDeleteDirLoading,
     showEditFileLoading,
+    showDeleteFileLoading,
     showDeleteFileForm,
     showDeleteDirForm,
     changeChosenFileName,
