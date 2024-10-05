@@ -22,4 +22,15 @@ const buildBreadCrumb = async (currentDir) => {
     return breadCrumb;
 };
 
-module.exports = { buildBreadCrumb };
+const buildBreadCrumbForFile = async (file) => {
+    const currentDir = await getDirById(file.directoryId);
+
+    const breadCrumb = await buildBreadCrumb(currentDir);
+
+    // adding file to breadcrumb
+    breadCrumb.push({ id: file.id, name: file.name });
+
+    return breadCrumb;
+};
+
+module.exports = { buildBreadCrumb, buildBreadCrumbForFile };
