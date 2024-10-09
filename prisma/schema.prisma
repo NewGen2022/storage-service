@@ -33,22 +33,37 @@ model Directory {
     parent    Directory?  @relation("DirectoryChildren", fields: [parentId], references: [id]) // Link to parent dir
     parentId  String?
     children  Directory[] @relation("DirectoryChildren")
+    shareLink ShareLink[]
 
     @@unique([parentId, name], name: "unique_name_in_parent_dir")
 }
 
 model File {
-    id          String    @id @default(uuid())
+    id          String      @id @default(uuid())
     name        String
     size        Float
-    extension   String    @default("")
-    type        DocTypes  @default(FILE)
-    createdAt   DateTime  @default(now())
-    directory   Directory @relation(fields: [directoryId], references: [id])
+    extension   String      @default("")
+    type        DocTypes    @default(FILE)
+    createdAt   DateTime    @default(now())
+    directory   Directory   @relation(fields: [directoryId], references: [id])
     directoryId String
     path        String?
+    shareLink   ShareLink[]
 
     @@unique([directoryId, name], name: "unique_name_in_directory")
+}
+
+model ShareLink {
+    id          String   @id @default(uuid())
+    expiresAt   DateTime
+    itemType    DocTypes
+    directoryId String?
+    fileId      String?
+
+    directory Directory? @relation(fields: [directoryId], references: [id])
+    file      File?      @relation(fields: [fileId], references: [id])
+
+    @@index([directoryId, fileId], name: "directory_or_file_index")
 }
 
 enum Role {
