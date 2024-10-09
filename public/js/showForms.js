@@ -182,6 +182,20 @@ const submitDownloadFileForm = () => {
     });
 };
 
+const showShareDirForm = () => {
+    const shareDirContainer = document.getElementById('shareDirContainer');
+    const shareDirBtn = document.getElementById('shareDirBtn');
+    const cancelDeleteDirBtn = document.getElementById('cancelShareDirBtn');
+
+    shareDirBtn.addEventListener('click', () => {
+        shareDirContainer.style.display = 'flex';
+    });
+
+    cancelDeleteDirBtn.addEventListener('click', () => {
+        shareDirContainer.style.display = 'none';
+    });
+};
+
 export {
     showSuccessMsg,
     showAddDirForm,
@@ -196,4 +210,5 @@ export {
     showDeleteDirForm,
     changeChosenFileName,
     submitDownloadFileForm,
+    showShareDirForm,
 };
