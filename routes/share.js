@@ -1,10 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const { shareFile, shareDir } = require('../controllers/shareController');
+const {
+    shareFileController,
+    shareDirController,
+} = require('../controllers/shareController');
 
 // POST ROUTES
-router.post('/file/share/:fileId', shareFile);
+router.post('/file/share/:fileId', shareFileController);
 
-router.post('/directory/share/:dirId', shareDir);
+router.post('/directory/share/:dirId', shareDirController);
 
 module.exports = router;
