@@ -30,7 +30,7 @@ model Directory {
     user      User        @relation(fields: [userId], references: [id])
     userId    String
     files     File[]
-    parent    Directory?  @relation("DirectoryChildren", fields: [parentId], references: [id]) // Link to parent dir
+    parent    Directory?  @relation("DirectoryChildren", fields: [parentId], references: [id], onDelete: Cascade) // Link to parent dir
     parentId  String?
     children  Directory[] @relation("DirectoryChildren")
     shareLink ShareLink[]
@@ -45,7 +45,7 @@ model File {
     extension   String      @default("")
     type        DocTypes    @default(FILE)
     createdAt   DateTime    @default(now())
-    directory   Directory   @relation(fields: [directoryId], references: [id])
+    directory   Directory   @relation(fields: [directoryId], references: [id], onDelete: Cascade)
     directoryId String
     path        String?
     shareLink   ShareLink[]
@@ -60,8 +60,8 @@ model ShareLink {
     directoryId String?
     fileId      String?
 
-    directory Directory? @relation(fields: [directoryId], references: [id])
-    file      File?      @relation(fields: [fileId], references: [id])
+    directory Directory? @relation(fields: [directoryId], references: [id], onDelete: Cascade)
+    file      File?      @relation(fields: [fileId], references: [id], onDelete: Cascade)
 
     @@index([directoryId, fileId], name: "directory_or_file_index")
 }
