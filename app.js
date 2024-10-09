@@ -9,6 +9,7 @@ const passport = require('./config/passport');
 const flash = require('connect-flash');
 const authRouter = require('./routes/auth');
 const indexRouter = require('./routes/index');
+const shareRouter = require('./routes/share');
 
 const PORT = process.env.PORT;
 const app = express();
@@ -68,6 +69,7 @@ app.use((req, res, next) => {
 // routes
 app.use('/', indexRouter);
 app.use('/', authRouter);
+app.use('/', shareRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
