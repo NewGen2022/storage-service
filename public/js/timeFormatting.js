@@ -22,4 +22,10 @@ const formatDateDetailed = (date) => {
     return date.toLocaleString('en-GB', optionsDetailed);
 };
 
-module.exports = { formatDate, formatDateDetailed };
+const calculateExpireAt = (duration) => {
+    const currentDate = new Date();
+    currentDate.setHours(currentDate.getHours() + duration);
+    return currentDate.toISOString();
+};
+
+module.exports = { formatDate, formatDateDetailed, calculateExpireAt };
