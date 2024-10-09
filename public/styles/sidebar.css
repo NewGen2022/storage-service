@@ -51,8 +51,8 @@
 }
 
 #sidebar .share:hover {
-    background-color: rgb(64, 0, 64);
-    border-color: rgb(255, 0, 255);
+    background-color: var(--deep-purple);
+    border-color: var(--magenta);
 }
 
 #sidebar .delete:hover {
@@ -121,7 +121,7 @@
     }
 
     #sidebar #shareDirBtn:hover svg {
-        fill: rgb(255, 0, 255);
+        fill: var(--magenta);
     }
 
     #sidebar #deleteDirBtn:hover svg,
