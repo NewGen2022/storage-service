@@ -16,7 +16,8 @@
 #deleteFileForm form,
 #deleteDirForm form,
 #editDirForm form,
-#editFileForm form {
+#editFileForm form,
+#shareDirForm {
     background-color: #303030;
     padding: 20px;
     border-radius: 5px;
@@ -50,6 +51,11 @@
     border-color: var(--gold);
 }
 
+.share-button:hover {
+    background-color: var(--deep-purple);
+    border-color: var(--magenta);
+}
+
 .create-text {
     color: var(--light-blue);
 }
@@ -60,6 +66,10 @@
 
 .edit-text {
     color: var(--gold);
+}
+
+.share-text {
+    color: var(--magenta);
 }
 
 /* Upload container styles */
@@ -109,4 +119,85 @@
     align-items: center;
     font-size: 24px;
     font-weight: 800;
+}
+
+#duration input[type='radio'] {
+    display: none;
+}
+#duration {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 10px;
+    text-align: center;
+    align-items: center;
+}
+#duration label:first-of-type {
+    border-radius: 5px 0 0 5px;
+}
+#duration label:last-of-type {
+    border-radius: 0 5px 5px 0;
+}
+#duration label {
+    border-radius: 0;
+}
+
+/* Change styles when the radio button is checked */
+#duration input[type='radio']:checked + .durationTime {
+    background-color: var(--deep-purple);
+    border-color: var(--magenta);
+}
+
+.durationTime {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    border: 2px solid rgb(153, 153, 153);
+    padding: 8px 10px;
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out, transform 0.15s ease-in-out;
+}
+.durationTime:hover {
+    background-color: var(--deep-purple);
+    border-color: var(--magenta);
+    transform: scale(1.03);
+}
+.durationTime:active {
+    transform: scale(1);
+}
+.durationTime[aria-checked='true'] {
+    background-color: var(--deep-purple);
+    border-color: var(--magenta);
+}
+
+#generate-link-text {
+    font-size: 0.9em;
+    margin-top: 20px;
+}
+
+#expire-text {
+    font-size: 0.8em;
+    color: #7e7e7e;
+}
+
+@media (max-width: 820px) {
+    #duration {
+        flex-direction: column;
+        gap: 10px;
+        border-radius: 0;
+        margin: 10px 20px;
+    }
+
+    #duration label,
+    #duration label:first-of-type,
+    #duration label:last-of-type {
+        border-radius: 5px;
+    }
+
+    .durationTime {
+        margin: 0;
+        padding: 8px 10px;
+        min-width: 100%;
+    }
 }
