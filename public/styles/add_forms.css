@@ -57,7 +57,8 @@
     border-color: var(--magenta);
     box-shadow: 0 0 10px var(--deep-purple);
 }
-.share-button:hover {
+.share-button:hover,
+.copied-btn {
     background-color: var(--deep-purple);
     border-color: var(--magenta);
 }
