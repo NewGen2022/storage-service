@@ -184,15 +184,53 @@ const submitDownloadFileForm = () => {
 
 const showShareDirForm = () => {
     const shareDirContainer = document.getElementById('shareDirContainer');
+    const generatedLinkContainer = document.getElementById(
+        'generatedLinkContainer'
+    );
+
     const shareDirBtn = document.getElementById('shareDirBtn');
+    const formShareDirBtn = document.getElementById('formShareDirBtn');
+
     const cancelDeleteDirBtn = document.getElementById('cancelShareDirBtn');
 
     shareDirBtn.addEventListener('click', () => {
         shareDirContainer.style.display = 'flex';
     });
 
+    formShareDirBtn.addEventListener('click', () => {
+        shareDirContainer.style.display = 'none';
+        generatedLinkContainer.style.display = 'flex';
+    });
+
     cancelDeleteDirBtn.addEventListener('click', () => {
         shareDirContainer.style.display = 'none';
+    });
+};
+
+const generatedLinkDirForm = () => {
+    const generatedLinkContainer = document.getElementById(
+        'generatedLinkContainer'
+    );
+    const generatedLinkDirCopyBtn = document.getElementById(
+        'generatedLinkDirCopyBtn'
+    );
+    const cancelDeleteDirBtn = document.getElementById(
+        'cancelGeneratedLinkDirBtn'
+    );
+
+    generatedLinkDirCopyBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const linkInput = document.getElementById('generated-link-dir-input');
+        linkInput.classList.add('generatedLink');
+        linkInput.select();
+        document.execCommand('copy');
+        setTimeout(() => {
+            linkInput.classList.remove('generatedLink');
+        }, 1000);
+    });
+
+    cancelDeleteDirBtn.addEventListener('click', () => {
+        generatedLinkContainer.style.display = 'none';
     });
 };
 
@@ -211,4 +249,5 @@ export {
     changeChosenFileName,
     submitDownloadFileForm,
     showShareDirForm,
+    generatedLinkDirForm,
 };
