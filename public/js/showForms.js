@@ -221,12 +221,19 @@ const generatedLinkDirForm = () => {
     generatedLinkDirCopyBtn.addEventListener('click', (e) => {
         e.preventDefault();
         const linkInput = document.getElementById('generated-link-dir-input');
+        const copySharedDirLinkBtn = document.getElementById(
+            'generatedLinkDirCopyBtn'
+        );
+
         linkInput.classList.add('generatedLink');
+        copySharedDirLinkBtn.classList.add('copied-btn');
         linkInput.select();
         document.execCommand('copy');
+        copySharedDirLinkBtn.textContent = 'Copied!';
         setTimeout(() => {
             linkInput.classList.remove('generatedLink');
-        }, 1000);
+            copySharedDirLinkBtn.classList.remove('copied-btn');
+        }, 10000);
     });
 
     cancelDeleteDirBtn.addEventListener('click', () => {
