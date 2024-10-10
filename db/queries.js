@@ -56,6 +56,29 @@ const createFile = async (name, extension, size, path, parentId = null) => {
     }
 };
 
+const createShareDirLink = async (
+    itemId,
+    expiresAt,
+    itemType = 'DIRECTORY'
+) => {
+    try {
+        const shareLink = await prisma.shareLink.create({
+            data: {
+                itemType: itemType,
+                directoryId: itemId,
+                expiresAt: expiresAt,
+            },
+        });
+
+        return shareLink;
+    } catch (err) {
+        console.error('Error creating share link for directory:', err);
+        throw err;
+    }
+};
+
+const createShareFileLink = (itemId, expiresAt, itemType = 'FILE') => {};
+
 // GET QUERIES
 const getAllUserDirectories = async (userId) => {
     try {
@@ -87,7 +110,7 @@ const getRootDir = async (userId) => {
 
 const getDirById = async (dirId) => {
     try {
-        const dir = prisma.directory.findUnique({
+        const dir = await prisma.directory.findUnique({
             where: { id: dirId },
             select: {
                 id: true,
@@ -118,6 +141,19 @@ const getFileById = async (fileId) => {
         return file;
     } catch (err) {
         console.error('Error fetching file:', err);
+        throw err;
+    }
+};
+
+const getShareLinkByDirId = async (dirId) => {
+    try {
+        const dir = await prisma.shareLink.findFirst({
+            where: { directoryId: dirId },
+        });
+
+        return dir;
+    } catch (err) {
+        console.error('Directory with ID ${parentId} not found:', err);
         throw err;
     }
 };
@@ -180,9 +216,9 @@ const deleteDir = async (userId, dirId) => {
 };
 
 // UPDATE QUERIES
-const updateDirName = (dirId, newName) => {
+const updateDirName = async (dirId, newName) => {
     try {
-        const updatedDir = prisma.directory.update({
+        const updatedDir = await prisma.directory.update({
             where: { id: dirId },
             data: {
                 name: newName,
@@ -196,9 +232,9 @@ const updateDirName = (dirId, newName) => {
     }
 };
 
-const updateFileName = (fileId, newName, newPath) => {
+const updateFileName = async (fileId, newName, newPath) => {
     try {
-        const updatedFile = prisma.file.update({
+        const updatedFile = await prisma.file.update({
             where: { id: fileId },
             data: {
                 name: newName,
@@ -212,26 +248,6 @@ const updateFileName = (fileId, newName, newPath) => {
         throw err;
     }
 };
-
-// SHARE QUERIES
-const createShareDirLink = (itemId, expiresAt, itemType = 'DIRECTORY') => {
-    try {
-        const shareLink = prisma.shareLink.create({
-            data: {
-                itemType: itemType,
-                directoryId: itemId,
-                expiresAt: expiresAt,
-            },
-        });
-
-        return shareLink;
-    } catch (err) {
-        console.error('Error creating share link for directory:', err);
-        throw err;
-    }
-};
-
-const createShareFileLink = (itemId, expiresAt, itemType = 'FILE') => {};
 
 // OTHER QUERIES
 const directoryExists = async (directoryId) => {
@@ -255,4 +271,5 @@ module.exports = {
     updateFileName,
     directoryExists,
     createShareDirLink,
+    getShareLinkByDirId,
 };
