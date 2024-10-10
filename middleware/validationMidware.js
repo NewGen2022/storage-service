@@ -2,6 +2,7 @@ const { body } = require('express-validator');
 const prisma = require('../db/prismaClient');
 const {
     getShareLinkByDirId,
+    getShareLinkByFileId,
     deleteShareFileLink,
     deleteExpiredShareLinksForDir,
 } = require('../db/queries');
@@ -47,11 +48,8 @@ const isValidShareDirLink = async (req, res, next) => {
     const currentTime = new Date();
 
     if (currentTime > shareLink.expiresAt) {
-        if (shareLink.itemType === 'DIRECTORY') {
-            await deleteExpiredShareLinksForDir(shareLink.directoryId);
-        } else if (shareLink.itemType === 'FILE') {
-            await deleteShareFileLink(shareLink.fileId);
-        }
+        await deleteExpiredShareLinksForDir(shareLink.directoryId);
+
         return res.status(401).render('error', {
             errorMsg: 'This directory is expired',
             btnMsg: 'Go to website',
@@ -61,4 +59,27 @@ const isValidShareDirLink = async (req, res, next) => {
     next();
 };
 
-module.exports = { validateSignUp, isValidShareDirLink };
+const isValidShareFileLink = async (req, res, next) => {
+    const shareLink = await getShareLinkByFileId(req.params.fileId);
+
+    if (!shareLink) {
+        return res.status(401).render('error', {
+            errorMsg: 'This file is not shared',
+            btnMsg: 'Go to website',
+        });
+    }
+
+    const currentTime = new Date();
+
+    if (currentTime > shareLink.expiresAt) {
+        await deleteShareFileLink(shareLink.fileId);
+
+        return res.status(401).render('error', {
+            errorMsg: 'This file is expired',
+            btnMsg: 'Go to website',
+        });
+    }
+    next();
+};
+
+module.exports = { validateSignUp, isValidShareDirLink, isValidShareFileLink };
