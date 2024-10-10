@@ -59,6 +59,8 @@
             submitDownloadFileForm,
             showShareDirForm,
             generatedLinkDirForm,
+            showShareFileForm,
+            generatedLinkFileForm,
         } from '/js/showForms.js';
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -83,6 +85,8 @@
                 showEditFileForm();
                 showEditFileLoading();
                 showDeleteFileLoading();
+                showShareFileForm();
+                generatedLinkFileForm();
             }
             if (deleteDirBtn) {
                 showEditDirForm();
