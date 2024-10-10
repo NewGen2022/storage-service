@@ -213,6 +213,26 @@ const updateFileName = (fileId, newName, newPath) => {
     }
 };
 
+// SHARE QUERIES
+const createShareDirLink = (itemId, expiresAt, itemType = 'DIRECTORY') => {
+    try {
+        const shareLink = prisma.shareLink.create({
+            data: {
+                itemType: itemType,
+                directoryId: itemId,
+                expiresAt: expiresAt,
+            },
+        });
+
+        return shareLink;
+    } catch (err) {
+        console.error('Error creating share link for directory:', err);
+        throw err;
+    }
+};
+
+const createShareFileLink = (itemId, expiresAt, itemType = 'FILE') => {};
+
 // OTHER QUERIES
 const directoryExists = async (directoryId) => {
     const directory = await prisma.directory.findUnique({
@@ -234,4 +254,5 @@ module.exports = {
     updateDirName,
     updateFileName,
     directoryExists,
+    createShareDirLink,
 };
