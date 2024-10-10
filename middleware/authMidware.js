@@ -9,4 +9,12 @@ const isAuth = (req, res, next) => {
     });
 };
 
-module.exports = { isAuth };
+const preventAuthRoutesIfAuth = (req, res, next) => {
+    if (req.isAuthenticated()) {
+        return res.redirect('/');
+    }
+
+    next();
+};
+
+module.exports = { isAuth, preventAuthRoutesIfAuth };
