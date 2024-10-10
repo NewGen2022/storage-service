@@ -1,6 +1,6 @@
 <div id="shareDirContainer" class="modal">
     <form
-        action="/directory/share/<%= dirId %>"
+        action="/share/directory/<%= dirId %>"
         id="shareDirForm"
         method="POST"
     >
@@ -73,5 +73,7 @@
                 Cancel
             </button>
         </div>
+
+        <input type="hidden" id="dirId" value="<%= dirId %>" />
     </form>
 </div>
