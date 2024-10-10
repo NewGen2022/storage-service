@@ -8,6 +8,7 @@ const {
     updateDirName,
     updateFileName,
     directoryExists,
+    getDirById,
 } = require('../db/queries');
 const {
     formatDate,
@@ -32,7 +33,7 @@ const welcomePage = (req, res) => {
     if (req.isAuthenticated()) {
         res.redirect('/directory');
     } else {
-        res.render('welcome_page', { dirs: [] });
+        res.render('welcome_page');
     }
 };
 
@@ -53,14 +54,12 @@ const indexRender = async (req, res) => {
 
         res.render('index', {
             user: req.user,
-            dirs,
             currentDirId,
             currentDir,
             formatDate,
             isRoot,
             isDir,
             breadCrumb,
-            file: {},
             dirName: currentDir.name,
             formatFileSize,
         });
@@ -76,21 +75,17 @@ const indexRender = async (req, res) => {
 
 const fileInfoRender = async (req, res) => {
     try {
-        const userId = req.user.id;
         const fileId = req.params.fileId;
 
         const file = await getFileById(fileId);
-        const dirs = await getAllUserDirectories(userId);
 
         const breadCrumb = await buildBreadCrumbForFile(file);
 
         res.render('file', {
             file,
             formatDate: formatDateDetailed,
-            dirs,
             currentDirId: file.directoryId,
             isDir: false,
-            dirName: null,
             formatFileSize,
             breadCrumb,
         });
