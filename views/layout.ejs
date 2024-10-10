@@ -34,7 +34,8 @@
         <div id="container">
             <!-- SIDEBAR template -->
             <% if(currentUser) { %> <%- include('sidebar', { dirId:
-            currentDirId, dirName: dirName}) %> <% } %>
+            currentDirId, dirName: (typeof dirName !== 'undefined' ? dirName :
+            null)}) %> <% } %>
 
             <!-- MAIN CONTENT template -->
             <div id="main"><%- body %></div>
