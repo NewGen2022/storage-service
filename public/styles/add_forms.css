@@ -18,7 +18,9 @@
 #editDirForm form,
 #editFileForm form,
 #shareDirForm,
-#generatedLinkForm {
+#generatedLinkForm,
+#shareFileForm,
+#generatedFileLinkForm {
     background-color: #303030;
     padding: 20px;
     border-radius: 5px;
