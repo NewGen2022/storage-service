@@ -1,5 +1,5 @@
 const { calculateExpireAt } = require('../public/js/timeFormatting');
-const { createShareDirLink } = require('../db/queries');
+const { createShareLinkDirRecursively } = require('../db/queries');
 
 // SHOW SHARE LINK CONTROLLERS
 const showSharedFileController = async (req, res) => {};
@@ -17,7 +17,13 @@ const shareDirController = async (req, res) => {
     const expiresAt = calculateExpireAt(Number(duration));
 
     try {
-        const shareDirLink = await createShareDirLink(dirId, expiresAt);
+        // Create share link for the main directory
+        // and recursively share all contents of the directory
+        const shareDirLink = await createShareLinkDirRecursively(
+            dirId,
+            expiresAt
+        );
+
         res.status(201).json(shareDirLink);
     } catch (err) {
         console.error('Error creating share link for directory:', err);
