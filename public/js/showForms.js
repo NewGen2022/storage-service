@@ -278,6 +278,99 @@ const generatedLinkDirForm = () => {
     });
 };
 
+const showShareFileForm = () => {
+    const shareFileContainer = document.getElementById('shareFileContainer');
+    const generatedFileLinkContainer = document.getElementById(
+        'generatedFileLinkContainer'
+    );
+    const shareFileBtn = document.getElementById('shareFileBtn');
+    const shareFileForm = document.getElementById('shareFileForm');
+    const cancelShareFileBtn = document.getElementById('cancelShareFileBtn');
+
+    // Show the share directory form when the share button is clicked
+    shareFileBtn.addEventListener('click', () => {
+        shareFileContainer.style.display = 'flex';
+    });
+
+    shareFileForm.addEventListener('submit', async (e) => {
+        // Hide the share directory form and show the generated link form
+        shareFileContainer.style.display = 'none';
+        generatedFileLinkContainer.style.display = 'flex';
+
+        e.preventDefault();
+
+        const fileId = document.getElementById('fileId').value;
+        const duration = document.querySelector(
+            'input[name="duration"]:checked'
+        ).value;
+
+        try {
+            const response = await fetch(`/share/file/${fileId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ duration }),
+            });
+
+            if (!response.ok) throw new Error('Failed to generate link');
+
+            // Get the response JSON (assuming the server sends a JSON with the generated link)
+            const result = await response.json();
+
+            const fullBaseUrl = getFullBaseUrl();
+
+            // Update the generated link input with the received value
+            const linkInput = document.getElementById(
+                'generated-link-file-input'
+            );
+            linkInput.value = fullBaseUrl + '/share/file/' + result.fileId;
+        } catch (error) {
+            console.error('Error generating the share link for file:', error);
+        }
+    });
+
+    // Cancel button handler for the share file form
+    cancelShareFileBtn.addEventListener('click', () => {
+        shareFileContainer.style.display = 'none';
+    });
+};
+
+const generatedLinkFileForm = () => {
+    const generatedFileLinkContainer = document.getElementById(
+        'generatedFileLinkContainer'
+    );
+    const copySharedFileLinkBtn = document.getElementById(
+        'generatedLinkFileCopyBtn'
+    );
+    const cancelDeleteFileBtn = document.getElementById(
+        'cancelGeneratedLinkFileBtn'
+    );
+
+    copySharedFileLinkBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const linkInput = document.getElementById('generated-link-file-input');
+        const copySharedFileLinkBtn = document.getElementById(
+            'generatedLinkFileCopyBtn'
+        );
+
+        linkInput.classList.add('generatedLink');
+        copySharedFileLinkBtn.classList.add('copied-btn');
+        linkInput.select();
+        document.execCommand('copy');
+        copySharedFileLinkBtn.textContent = 'Copied!';
+        setTimeout(() => {
+            linkInput.classList.remove('generatedLink');
+            copySharedFileLinkBtn.classList.remove('copied-btn');
+            copySharedFileLinkBtn.textContent = 'Copy';
+        }, 5000);
+    });
+
+    cancelDeleteFileBtn.addEventListener('click', () => {
+        generatedFileLinkContainer.style.display = 'none';
+    });
+};
+
 export {
     showSuccessMsg,
     showAddDirForm,
@@ -294,4 +387,6 @@ export {
     submitDownloadFileForm,
     showShareDirForm,
     generatedLinkDirForm,
+    showShareFileForm,
+    generatedLinkFileForm,
 };
