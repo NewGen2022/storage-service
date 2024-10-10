@@ -200,7 +200,20 @@ const getShareLinkByDirId = async (dirId) => {
 
         return dir;
     } catch (err) {
-        console.error('Directory with ID ${parentId} not found:', err);
+        console.error(`Directory with ID ${dirId} not found:`, err);
+        throw err;
+    }
+};
+
+const getShareLinkByFileId = async (fileId) => {
+    try {
+        const file = await prisma.shareLink.findFirst({
+            where: { fileId: fileId },
+        });
+
+        return file;
+    } catch (err) {
+        console.error(`File with ID ${fileId} not found:`, err);
         throw err;
     }
 };
@@ -454,4 +467,5 @@ module.exports = {
     deleteShareLinkDirRecursively,
     deleteShareFileLink,
     deleteExpiredShareLinksForDir,
+    getShareLinkByFileId,
 };
