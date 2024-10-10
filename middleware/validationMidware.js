@@ -1,5 +1,10 @@
 const { body } = require('express-validator');
 const prisma = require('../db/prismaClient');
+const {
+    getShareLinkByDirId,
+    deleteShareFileLink,
+    deleteExpiredShareLinksForDir,
+} = require('../db/queries');
 
 const validateSignUp = [
     body('username')
@@ -29,4 +34,31 @@ const validateSignUp = [
     }),
 ];
 
-module.exports = { validateSignUp };
+const isValidShareDirLink = async (req, res, next) => {
+    const shareLink = await getShareLinkByDirId(req.params.dirId);
+
+    if (!shareLink) {
+        return res.status(401).render('error', {
+            errorMsg: 'This directory is not shared',
+            btnMsg: 'Go to website',
+        });
+    }
+
+    const currentTime = new Date();
+
+    if (currentTime > shareLink.expiresAt) {
+        if (shareLink.itemType === 'DIRECTORY') {
+            await deleteExpiredShareLinksForDir(shareLink.directoryId);
+        } else if (shareLink.itemType === 'FILE') {
+            await deleteShareFileLink(shareLink.fileId);
+        }
+        return res.status(401).render('error', {
+            errorMsg: 'This directory is expired',
+            btnMsg: 'Go to website',
+        });
+    }
+
+    next();
+};
+
+module.exports = { validateSignUp, isValidShareDirLink };
