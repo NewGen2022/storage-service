@@ -1,3 +1,5 @@
+import { getFullBaseUrl } from './getBaseUrl.js';
+
 const showSuccessMsg = () => {
     const successContainer = document.getElementById('success-container');
     const successMsg = document.getElementById('success-msg');
@@ -187,21 +189,55 @@ const showShareDirForm = () => {
     const generatedLinkContainer = document.getElementById(
         'generatedLinkContainer'
     );
-
     const shareDirBtn = document.getElementById('shareDirBtn');
-    const formShareDirBtn = document.getElementById('formShareDirBtn');
-
+    const shareDirForm = document.getElementById('shareDirForm');
     const cancelDeleteDirBtn = document.getElementById('cancelShareDirBtn');
 
+    // Show the share directory form when the share button is clicked
     shareDirBtn.addEventListener('click', () => {
         shareDirContainer.style.display = 'flex';
     });
 
-    formShareDirBtn.addEventListener('click', () => {
+    shareDirForm.addEventListener('submit', async (e) => {
+        // Hide the share directory form and show the generated link form
         shareDirContainer.style.display = 'none';
         generatedLinkContainer.style.display = 'flex';
+
+        e.preventDefault();
+
+        const dirId = document.getElementById('dirId').value;
+        const duration = document.querySelector(
+            'input[name="duration"]:checked'
+        ).value;
+
+        try {
+            const response = await fetch(`/share/directory/${dirId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ duration }),
+            });
+
+            if (!response.ok) throw new Error('Failed to generate link');
+
+            // Get the response JSON (assuming the server sends a JSON with the generated link)
+            const result = await response.json();
+
+            const fullBaseUrl = getFullBaseUrl();
+
+            // Update the generated link input with the received value
+            const linkInput = document.getElementById(
+                'generated-link-dir-input'
+            );
+            linkInput.value =
+                fullBaseUrl + '/share/directory/' + result.directoryId;
+        } catch (error) {
+            console.error('Error generating the share link:', error);
+        }
     });
 
+    // Cancel button handler for the share directory form
     cancelDeleteDirBtn.addEventListener('click', () => {
         shareDirContainer.style.display = 'none';
     });
@@ -233,7 +269,8 @@ const generatedLinkDirForm = () => {
         setTimeout(() => {
             linkInput.classList.remove('generatedLink');
             copySharedDirLinkBtn.classList.remove('copied-btn');
-        }, 10000);
+            copySharedDirLinkBtn.textContent = 'Copy';
+        }, 5000);
     });
 
     cancelDeleteDirBtn.addEventListener('click', () => {
