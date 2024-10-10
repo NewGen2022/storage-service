@@ -1,0 +1,74 @@
+<div id="shareFileContainer" class="modal">
+    <form action="/share/file/<%= fileId %>" id="shareFileForm" method="POST">
+        <h3 class="share-text">Share File</h3>
+
+        <div id="generate-link-text">
+            Generate a public link to share the current file
+        </div>
+
+        <label for="duration">Duration</label>
+
+        <div role="radiogroup" id="duration">
+            <input
+                type="radio"
+                id="duration1"
+                name="duration"
+                value="1"
+                checked
+                required
+            />
+            <label for="duration1" class="durationTime">1 hour</label>
+
+            <input
+                type="radio"
+                id="duration4"
+                name="duration"
+                value="4"
+                required
+            />
+            <label for="duration4" class="durationTime">4 hours</label>
+
+            <input
+                type="radio"
+                id="duration24"
+                name="duration"
+                value="24"
+                required
+            />
+            <label for="duration24" class="durationTime">1 day</label>
+
+            <input
+                type="radio"
+                id="duration72"
+                name="duration"
+                value="72"
+                required
+            />
+            <label for="duration72" class="durationTime">3 days</label>
+
+            <input
+                type="radio"
+                id="duration168"
+                name="duration"
+                value="168"
+                required
+            />
+            <label for="duration168" class="durationTime">1 week</label>
+        </div>
+
+        <div id="expire-text">
+            Link will expire after the specified duration
+        </div>
+
+        <div class="actions">
+            <button type="submit" class="share-button" id="formShareFileBtn">
+                Share
+            </button>
+            <button type="button" class="cancel-btn" id="cancelShareFileBtn">
+                Cancel
+            </button>
+        </div>
+
+        <input type="hidden" id="fileId" value="<%= fileId %>" />
+    </form>
+</div>
