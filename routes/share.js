@@ -1,13 +1,21 @@
 const express = require('express');
 const router = express.Router();
+const { isAuth } = require('../middleware/authMidware');
 const {
+    showSharedFileController,
+    showSharedDirController,
     shareFileController,
     shareDirController,
 } = require('../controllers/shareController');
 
-// POST ROUTES
-router.post('/file/share/:fileId', shareFileController);
+// GET ROUTES
+router.get('/share/file/:fileId', showSharedFileController);
 
-router.post('/directory/share/:dirId', shareDirController);
+router.get('/share/directory/:dirId', showSharedDirController);
+
+// POST ROUTES
+router.post('/share/file/:fileId', isAuth, shareFileController);
+
+router.post('/share/directory/:dirId', isAuth, shareDirController);
 
 module.exports = router;
