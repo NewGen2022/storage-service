@@ -56,16 +56,12 @@ const createFile = async (name, extension, size, path, parentId = null) => {
     }
 };
 
-const createShareDirLink = async (
-    itemId,
-    expiresAt,
-    itemType = 'DIRECTORY'
-) => {
+const createShareDirLink = async (dirId, expiresAt) => {
     try {
         const shareLink = await prisma.shareLink.create({
             data: {
-                itemType: itemType,
-                directoryId: itemId,
+                itemType: 'DIRECTORY',
+                directoryId: dirId,
                 expiresAt: expiresAt,
             },
         });
@@ -77,7 +73,58 @@ const createShareDirLink = async (
     }
 };
 
-const createShareFileLink = (itemId, expiresAt, itemType = 'FILE') => {};
+const createShareFileLink = async (fileId, expiresAt) => {
+    try {
+        const shareLink = await prisma.shareLink.create({
+            data: {
+                itemType: 'FILE',
+                fileId: fileId,
+                expiresAt: expiresAt,
+            },
+        });
+
+        return shareLink;
+    } catch (err) {
+        console.error('Error creating share link for file:', err);
+        throw err;
+    }
+};
+
+// creates share link for shared dir and for all of its files and subdirs (and for subdirs of subdirs etc)
+const createShareLinkDirRecursively = async (dirId, expiresAt) => {
+    try {
+        // Share the current directory
+        const shareLink = await createShareDirLink(dirId, expiresAt);
+
+        // Get all subdirectories
+        const subDirs = await prisma.directory.findMany({
+            where: { parentId: dirId },
+        });
+
+        // Get all files in the directory
+        const files = await prisma.file.findMany({
+            where: { directoryId: dirId },
+        });
+
+        // Recursively create share links for all subdirectories
+        for (const subDir of subDirs) {
+            await createShareLinkDirRecursively(subDir.id, expiresAt);
+        }
+
+        // Create share links for all files in the directory
+        for (const file of files) {
+            await createShareFileLink(file.id, expiresAt);
+        }
+
+        return shareLink;
+    } catch (err) {
+        console.error(
+            'Error creating share link for directory recursively:',
+            err
+        );
+        throw err;
+    }
+};
 
 // GET QUERIES
 const getAllUserDirectories = async (userId) => {
@@ -215,6 +262,137 @@ const deleteDir = async (userId, dirId) => {
     }
 };
 
+const deleteShareDirLink = async (dirId) => {
+    try {
+        // Find the share link for the directory
+        const shareLink = await prisma.shareLink.findUnique({
+            where: {
+                directoryId: dirId,
+            },
+        });
+
+        // If no share link is found, log and return
+        if (!shareLink) {
+            console.log(`No share link found for directory ID ${dirId}.`);
+            return null; // or throw an error if you prefer
+        }
+
+        // Now delete the share link using its unique id
+        const deletedShareLink = await prisma.shareLink.delete({
+            where: {
+                id: shareLink.id, // Use the unique id for deletion
+            },
+        });
+
+        return deletedShareLink;
+    } catch (err) {
+        console.error('Error deleting share link for directory:', err);
+        throw err;
+    }
+};
+
+const deleteShareFileLink = async (fileId) => {
+    try {
+        // Find the share link for the file
+        const shareLink = await prisma.shareLink.findUnique({
+            where: {
+                fileId: fileId,
+            },
+        });
+
+        // If no share link is found, log and return
+        if (!shareLink) {
+            console.log(`No share link found for file ID ${fileId}.`);
+            return null; // or throw an error if you prefer
+        }
+
+        // Now delete the share link using its unique id
+        const deletedShareLink = await prisma.shareLink.delete({
+            where: {
+                id: shareLink.id, // Use the unique id for deletion
+            },
+        });
+
+        return deletedShareLink;
+    } catch (err) {
+        console.error('Error deleting share link for file:', err);
+        throw err;
+    }
+};
+
+// deletes share link for shared dir and for all of its files and subdirs (and for subdirs of subdirs etc)
+const deleteShareLinkDirRecursively = async (dirId) => {
+    try {
+        // Delete the share link for the current directory
+        const deletedShareLink = await deleteShareDirLink(dirId);
+
+        // Get all subdirectories
+        const subDirs = await prisma.directory.findMany({
+            where: { parentId: dirId },
+        });
+
+        // Get all files in the directory
+        const files = await prisma.file.findMany({
+            where: { directoryId: dirId },
+        });
+
+        // Recursively delete share links for all subdirectories
+        for (const subDir of subDirs) {
+            await deleteShareLinkDirRecursively(subDir.id);
+        }
+
+        // Delete share links for all files in the directory
+        for (const file of files) {
+            await deleteShareFileLink(file.id);
+        }
+
+        return deletedShareLink;
+    } catch (err) {
+        console.error(
+            'Error deleting share link for directory recursively:',
+            err
+        );
+        throw err;
+    }
+};
+
+const deleteExpiredShareLinksForDir = async (dirId) => {
+    try {
+        // Get the current time
+        const currentTime = new Date();
+
+        // Find all share links for the specific directory
+        const shareLinks = await prisma.shareLink.findMany({
+            where: {
+                OR: [
+                    { directoryId: dirId }, // For directories
+                    { fileId: { not: null } }, // For files linked to the directory
+                ],
+            },
+        });
+
+        // Filter expired share links
+        const expiredLinks = shareLinks.filter(
+            (link) => link.expiresAt < currentTime
+        );
+
+        // Delete each expired share link
+        for (const link of expiredLinks) {
+            await prisma.shareLink.delete({
+                where: {
+                    id: link.id, // Use the unique id for deletion
+                },
+            });
+        }
+
+        // Return the count of deleted links
+        return expiredLinks.length;
+    } catch (err) {
+        console.error('Error deleting expired share links for directory:', err);
+        throw err;
+    }
+};
+
 // UPDATE QUERIES
 const updateDirName = async (dirId, newName) => {
     try {
@@ -270,6 +448,10 @@ module.exports = {
     updateDirName,
     updateFileName,
     directoryExists,
-    createShareDirLink,
+    createShareLinkDirRecursively,
+    createShareFileLink,
     getShareLinkByDirId,
+    deleteShareLinkDirRecursively,
+    deleteShareFileLink,
+    deleteExpiredShareLinksForDir,
 };
