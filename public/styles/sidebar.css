@@ -120,7 +120,8 @@
         fill: var(--light-blue);
     }
 
-    #sidebar #shareDirBtn:hover svg {
+    #sidebar #shareDirBtn:hover svg,
+    #sidebar #shareFileBtn:hover svg {
         fill: var(--magenta);
     }
 
