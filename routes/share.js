@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { isAuth } = require('../middleware/authMidware');
+const { isValidShareDirLink } = require('../middleware/validationMidware');
 const {
     showSharedFileController,
     showSharedDirController,
@@ -11,7 +12,11 @@ const {
 // GET ROUTES
 router.get('/share/file/:fileId', showSharedFileController);
 
-router.get('/share/directory/:dirId', showSharedDirController);
+router.get(
+    '/share/directory/:dirId',
+    isValidShareDirLink,
+    showSharedDirController
+);
 
 // POST ROUTES
 router.post('/share/file/:fileId', isAuth, shareFileController);
