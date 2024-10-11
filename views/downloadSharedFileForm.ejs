@@ -1,0 +1,15 @@
+<div id="downloadSharedFileContainer" class="modal">
+    <form
+        id="downloadSharedFileForm"
+        action="/download/share/file/<%= fileId %>"
+        method="POST"
+    >
+        <input
+            type="text"
+            id="fileName"
+            name="fileName"
+            value="<%= fileName %>"
+            required
+        />
+    </form>
+</div>
