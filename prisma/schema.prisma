@@ -20,6 +20,7 @@ model User {
     password    String
     role        Role        @default(BASIC)
     directories Directory[]
+    ShareLink   ShareLink[]
 }
 
 model Directory {
@@ -59,9 +60,11 @@ model ShareLink {
     itemType    DocTypes
     directoryId String?
     fileId      String?
+    ownerId     String
 
     directory Directory? @relation(fields: [directoryId], references: [id], onDelete: Cascade)
     file      File?      @relation(fields: [fileId], references: [id], onDelete: Cascade)
+    user      User?      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
 
     @@index([directoryId, fileId], name: "directory_or_file_index")
 }
