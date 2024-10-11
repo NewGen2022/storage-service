@@ -4,9 +4,14 @@ const {
     createShareLinkDirRecursively,
 } = require('../db/queries');
 
+const { renderFileInfo } = require('./indexController');
+
 // SHOW SHARE LINK CONTROLLERS
 const showSharedFileController = async (req, res) => {
-    res.render('sharedFile');
+    const fileId = req.params.fileId;
+    res.locals.isSharedFile = true;
+
+    await renderFileInfo(res, fileId);
 };
 
 const showSharedDirController = async (req, res) => {
@@ -15,13 +20,18 @@ const showSharedDirController = async (req, res) => {
 
 // CREATE SHARE LINK CONTROLLERS
 const shareFileController = async (req, res) => {
+    const userId = req.user.id;
     const fileId = req.params.fileId;
     const duration = req.body.duration;
     const expiresAt = calculateExpireAt(Number(duration));
 
     try {
         // Create share link for the file
-        const shareFileLink = await createShareFileLink(fileId, expiresAt);
+        const shareFileLink = await createShareFileLink(
+            fileId,
+            expiresAt,
+            userId
+        );
 
         res.status(201).json(shareFileLink);
     } catch (err) {
@@ -31,6 +41,7 @@ const shareFileController = async (req, res) => {
 };
 
 const shareDirController = async (req, res) => {
+    const userId = req.user.id;
     const dirId = req.params.dirId;
     const duration = req.body.duration;
     const expiresAt = calculateExpireAt(Number(duration));
@@ -40,7 +51,8 @@ const shareDirController = async (req, res) => {
         // and recursively share all contents of the directory
         const shareDirLink = await createShareLinkDirRecursively(
             dirId,
-            expiresAt
+            expiresAt,
+            userId
         );
 
         res.status(201).json(shareDirLink);
