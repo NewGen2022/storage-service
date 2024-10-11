@@ -3,7 +3,7 @@ const prisma = require('../db/prismaClient');
 const {
     getShareLinkByDirId,
     getShareLinkByFileId,
-    deleteShareFileLink,
+    deleteExpiredShareLinksForFile,
     deleteExpiredShareLinksForDir,
 } = require('../db/queries');
 
@@ -72,7 +72,7 @@ const isValidShareFileLink = async (req, res, next) => {
     const currentTime = new Date();
 
     if (currentTime > shareLink.expiresAt) {
-        await deleteShareFileLink(shareLink.fileId);
+        await deleteExpiredShareLinksForFile(shareLink.fileId);
 
         return res.status(401).render('error', {
             errorMsg: 'This file is expired',
