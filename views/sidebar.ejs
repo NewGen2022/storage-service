@@ -1,6 +1,6 @@
 <nav id="sidebar">
     <ul>
-        <% if(isDir && !isSharedDir) {%>
+        <% if(isDir) {%>
         <li>
             <button id="addDirBtn">
                 <svg
@@ -60,7 +60,7 @@
                 New File
             </button>
         </li>
-        <% } %> <% if(isDir && !isRoot && !isSharedDir) {%>
+        <% } %> <% if(isDir && !isRoot) {%>
         <li>
             <button class="share" id="shareDirBtn">
                 <svg
