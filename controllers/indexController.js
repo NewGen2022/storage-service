@@ -72,10 +72,8 @@ const indexRender = async (req, res) => {
     }
 };
 
-const fileInfoRender = async (req, res) => {
+const renderFileInfo = async (res, fileId) => {
     try {
-        const fileId = req.params.fileId;
-
         const file = await getFileById(fileId);
 
         const breadCrumb = await buildBreadCrumbForFile(file);
@@ -92,6 +90,11 @@ const fileInfoRender = async (req, res) => {
         console.error('Error rendering file information', err);
         res.redirect('/directory');
     }
+};
+
+const fileInfoRender = async (req, res) => {
+    const fileId = req.params.fileId;
+    await renderFileInfo(res, fileId);
 };
 
 // CREATE CONTROLLERS
@@ -274,6 +277,7 @@ const downloadFileController = async (req, res) => {
 module.exports = {
     welcomePage,
     indexRender,
+    renderFileInfo,
     fileInfoRender,
     addDir,
     addFile,
