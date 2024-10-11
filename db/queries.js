@@ -56,13 +56,14 @@ const createFile = async (name, extension, size, path, parentId = null) => {
     }
 };
 
-const createShareDirLink = async (dirId, expiresAt) => {
+const createShareDirLink = async (dirId, expiresAt, ownerId) => {
     try {
         const shareLink = await prisma.shareLink.create({
             data: {
                 itemType: 'DIRECTORY',
                 directoryId: dirId,
                 expiresAt: expiresAt,
+                ownerId: ownerId,
             },
         });
 
@@ -73,13 +74,14 @@ const createShareDirLink = async (dirId, expiresAt) => {
     }
 };
 
-const createShareFileLink = async (fileId, expiresAt) => {
+const createShareFileLink = async (fileId, expiresAt, ownerId) => {
     try {
         const shareLink = await prisma.shareLink.create({
             data: {
                 itemType: 'FILE',
                 fileId: fileId,
                 expiresAt: expiresAt,
+                ownerId: ownerId,
             },
         });
 
