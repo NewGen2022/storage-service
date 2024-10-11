@@ -3,8 +3,8 @@ const {
     createShareFileLink,
     createShareLinkDirRecursively,
 } = require('../db/queries');
-
 const { renderFileInfo } = require('./indexController');
+const { indexRender } = require('../controllers/indexController');
 
 // SHOW SHARE LINK CONTROLLERS
 const showSharedFileController = async (req, res) => {
@@ -15,7 +15,9 @@ const showSharedFileController = async (req, res) => {
 };
 
 const showSharedDirController = async (req, res) => {
-    res.render('sharedDir');
+    res.locals.isSharedDir = true;
+
+    indexRender(req, res);
 };
 
 // CREATE SHARE LINK CONTROLLERS
