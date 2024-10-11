@@ -11,6 +11,7 @@ const {
     shareFileController,
     shareDirController,
 } = require('../controllers/shareController');
+const { downloadFileController } = require('../controllers/indexController');
 
 // GET ROUTES
 router.get(
@@ -29,5 +30,7 @@ router.get(
 router.post('/share/file/:fileId', isAuth, shareFileController);
 
 router.post('/share/directory/:dirId', isAuth, shareDirController);
+
+router.post('/download/share/file/:fileId', downloadFileController);
 
 module.exports = router;
