@@ -1,6 +1,7 @@
 const {
     getAllUserDirectories,
     getFileById,
+    getShareLinkByFileId,
     createDirectory,
     createFile,
     deleteFile,
@@ -248,13 +249,36 @@ const editFileController = async (req, res) => {
 
 // DOWNLOAD CONTROLLERS
 const downloadFileController = async (req, res) => {
-    const userId = req.user.id;
-    const fileName = req.body.fileName;
     const fileId = req.params.fileId;
+    let userId;
+
+    // if user using shared link, get userId from ownerId in ShareLink model
+    if (!req.user) {
+        const shareLink = await getShareLinkByFileId(fileId);
+
+        if (!shareLink) {
+            req.flash(
+                'error',
+                'File not found or you do not have access to it.'
+            );
+            return res.redirect('/directory');
+        }
+
+        userId = shareLink.ownerId;
+    } else {
+        userId = req.user.id;
+    }
+
+    const fileName = req.body.fileName;
     const filePath = `${userId}/${fileName}`;
 
     try {
         const data = await downloadFileSB(filePath);
+
+        if (!data) {
+            req.flash('error', 'Error downloading file');
+            throw new Error('File data is undefined.');
+        }
 
         const buffer = await data.arrayBuffer();
 
