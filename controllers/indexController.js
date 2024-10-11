@@ -8,7 +8,6 @@ const {
     updateDirName,
     updateFileName,
     directoryExists,
-    getDirById,
 } = require('../db/queries');
 const {
     formatDate,
