@@ -43,6 +43,8 @@
     </body>
 
     <script type="module">
+        const isSharedFile = '<%= JSON.stringify(isSharedFile) %>';
+
         import {
             showSuccessMsg,
             showAddDirForm,
@@ -57,9 +59,10 @@
             showDeleteDirForm,
             changeChosenFileName,
             submitDownloadFileForm,
+            submitDownloadSharedFileForm,
             showShareDirForm,
-            generatedLinkDirForm,
             showShareFileForm,
+            generatedLinkDirForm,
             generatedLinkFileForm,
         } from '/js/showForms.js';
 
@@ -94,6 +97,9 @@
                 showDeleteDirLoading();
                 showShareDirForm();
                 generatedLinkDirForm();
+            }
+            if (!addDirBtn && isSharedFile) {
+                submitDownloadSharedFileForm();
             }
         });
     </script>
