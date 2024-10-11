@@ -2,6 +2,7 @@ const {
     getAllUserDirectories,
     getFileById,
     getShareLinkByFileId,
+    getShareLinkByDirId,
     createDirectory,
     createFile,
     deleteFile,
@@ -40,8 +41,25 @@ const welcomePage = (req, res) => {
 // GET CONTROLLERS
 const indexRender = async (req, res) => {
     try {
-        const userId = req.user.id;
         const currentDirId = req.params.dirId || null;
+        let userId;
+
+        // if user using shared link, get userId from ownerId in ShareLink model
+        if (!req.user) {
+            const shareLink = await getShareLinkByDirId(currentDirId);
+
+            if (!shareLink) {
+                req.flash(
+                    'error',
+                    'Directory not found or you do not have access to it.'
+                );
+                return res.redirect('/directory');
+            }
+
+            userId = shareLink.ownerId;
+        } else {
+            userId = req.user.id;
+        }
 
         const dirs = await getAllUserDirectories(userId);
         const currentDir =
@@ -53,7 +71,6 @@ const indexRender = async (req, res) => {
         const breadCrumb = await buildBreadCrumb(currentDir);
 
         res.render('index', {
-            user: req.user,
             currentDirId,
             currentDir,
             formatDate,
