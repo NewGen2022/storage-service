@@ -44,6 +44,7 @@
 
     <script type="module">
         const isSharedFile = '<%= JSON.stringify(isSharedFile) %>';
+        const isSharedDir = '<%= JSON.stringify(isSharedDir) %>';
 
         import {
             showSuccessMsg,
@@ -72,6 +73,9 @@
             const addDirBtn = document.getElementById('addDirBtn');
             const deleteFileBtn = document.getElementById('deleteFileBtn');
             const deleteDirBtn = document.getElementById('deleteDirBtn');
+            const downloadSharedFileForm = document.getElementById(
+                'downloadSharedFileForm'
+            );
 
             if (successContainer) {
                 showSuccessMsg();
@@ -84,12 +88,12 @@
             }
             if (deleteFileBtn) {
                 showDeleteFileForm();
-                submitDownloadFileForm();
                 showEditFileForm();
                 showEditFileLoading();
                 showDeleteFileLoading();
                 showShareFileForm();
                 generatedLinkFileForm();
+                submitDownloadFileForm();
             }
             if (deleteDirBtn) {
                 showEditDirForm();
@@ -98,7 +102,7 @@
                 showShareDirForm();
                 generatedLinkDirForm();
             }
-            if (!addDirBtn && isSharedFile) {
+            if (downloadSharedFileForm) {
                 submitDownloadSharedFileForm();
             }
         });
