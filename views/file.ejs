@@ -52,4 +52,9 @@
 <!--  -->
 <%- include('generatedFileLinkForm') %>
 <!--  -->
+<% } else { %>
+<!--  -->
+<%- include('downloadSharedFileForm', { fileId: file.id, fileName: file.name })
+%>
+<!--  -->
 <% } %>
