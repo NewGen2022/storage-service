@@ -63,6 +63,7 @@ app.use((err, req, res, next) => {
 // set currentUser according to login user
 app.use((req, res, next) => {
     res.locals.currentUser = req.user;
+    res.locals.isSharedFile = false;
     next();
 });
 
