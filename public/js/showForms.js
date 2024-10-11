@@ -184,6 +184,16 @@ const submitDownloadFileForm = () => {
     });
 };
 
+const submitDownloadSharedFileForm = () => {
+    const downloadBtn = document.getElementById('downloadFileBtn');
+
+    downloadBtn.addEventListener('click', () => {
+        const downloadForm = document.getElementById('downloadSharedFileForm');
+
+        downloadForm.submit();
+    });
+};
+
 const showShareDirForm = () => {
     const shareDirContainer = document.getElementById('shareDirContainer');
     const generatedLinkContainer = document.getElementById(
@@ -385,8 +395,9 @@ export {
     showDeleteDirForm,
     changeChosenFileName,
     submitDownloadFileForm,
+    submitDownloadSharedFileForm,
     showShareDirForm,
-    generatedLinkDirForm,
     showShareFileForm,
+    generatedLinkDirForm,
     generatedLinkFileForm,
 };
