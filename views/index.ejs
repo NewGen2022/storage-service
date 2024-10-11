@@ -3,7 +3,7 @@
 <div id="breadcrumb">
     <% breadCrumb.forEach((dir, index) => { %>
     <a
-        href="/directory/<%= dir.id %>"
+        href="<%= isSharedDir ? '/share/directory/' + dir.id : '/directory/' + dir.id %>"
         id="<%= index === breadCrumb.length - 1 ? 'last' : '' %>"
         ><%= dir.name %></a
     >
@@ -20,7 +20,10 @@
     currentDir.files.length > 0)) { %> <% if( currentDir.children.length > 0) {
     %> <% currentDir.children.forEach(child => {%>
 
-    <a class="dir-info-container" href="/directory/<%= child.id %>">
+    <a
+        class="dir-info-container"
+        href="<%= isSharedDir ? '/share/directory/' + child.id : '/directory/' + child.id %>"
+    >
         <div class="grid-body-name">
             <svg
                 class="bi bi-folder"
@@ -42,7 +45,10 @@
     <% }) %> <% } %> <% if(currentDir.files.length > 0) { %> <%
     currentDir.files.forEach(file => {%>
 
-    <a class="file-info-container" href="/file/<%= file.id %>">
+    <a
+        class="file-info-container"
+        href="<%= isSharedDir ? '/share/file/' + file.id : '/file/' + file.id %>"
+    >
         <div class="grid-body-name">
             <svg
                 fill="currentColor"
