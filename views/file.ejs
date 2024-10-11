@@ -1,5 +1,7 @@
 <% layout('layout') %>
 
+<!--  -->
+<% if (!isSharedFile) { %>
 <div id="breadcrumb">
     <% breadCrumb.forEach((item, index) => { %>
     <a
@@ -9,6 +11,7 @@
     >
     <% if (index < breadCrumb.length - 1) { %> > <% } %> <% }) %>
 </div>
+<% } %>
 
 <div id="filePreview">
     <% if (file.extension.startsWith('image/')) { %>
@@ -37,12 +40,16 @@
     </div>
 </div>
 
-<%- include('deleteFileForm', { fileId: file.id, fileName: file.name }) %>
-<!--  -->
 <%- include('downloadFileForm', { fileId: file.id, fileName: file.name }) %>
+<!--  -->
+<% if (!isSharedFile) { %>
+<!--  -->
+<%- include('deleteFileForm', { fileId: file.id, fileName: file.name }) %>
 <!--  -->
 <%- include('editFileForm', { fileId: file.id, fileName: file.name }) %>
 <!--  -->
 <%- include('shareFileForm', { fileId: file.id }) %>
 <!--  -->
 <%- include('generatedFileLinkForm') %>
+<!--  -->
+<% } %>
