@@ -93,10 +93,10 @@ const createShareFileLink = async (fileId, expiresAt, ownerId) => {
 };
 
 // creates share link for shared dir and for all of its files and subdirs (and for subdirs of subdirs etc)
-const createShareLinkDirRecursively = async (dirId, expiresAt) => {
+const createShareLinkDirRecursively = async (dirId, expiresAt, ownerId) => {
     try {
         // Share the current directory
-        const shareLink = await createShareDirLink(dirId, expiresAt);
+        const shareLink = await createShareDirLink(dirId, expiresAt, ownerId);
 
         // Get all subdirectories
         const subDirs = await prisma.directory.findMany({
@@ -110,12 +110,12 @@ const createShareLinkDirRecursively = async (dirId, expiresAt) => {
 
         // Recursively create share links for all subdirectories
         for (const subDir of subDirs) {
-            await createShareLinkDirRecursively(subDir.id, expiresAt);
+            await createShareLinkDirRecursively(subDir.id, expiresAt, ownerId);
         }
 
         // Create share links for all files in the directory
         for (const file of files) {
-            await createShareFileLink(file.id, expiresAt);
+            await createShareFileLink(file.id, expiresAt, ownerId);
         }
 
         return shareLink;
