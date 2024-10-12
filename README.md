@@ -29,6 +29,7 @@ The assignment was to create a stripped down version of Google Drive using Expre
 - Access Control: Set expiration dates for shared directories and files to manage access effectively.
 
 - User Feedback: Provide clear feedback through popup alerts and messages.
+- 
 
 - Registration: Enable new user sign-up with PostgreSQL, managed through Prisma ORM.
 - Authentication: Secure user sessions using PassportJS and Prisma Session Store.
@@ -44,5 +45,13 @@ The assignment was to create a stripped down version of Google Drive using Expre
 
 
 # App preview
-![app preview]()
+![app preview](https://github.com/NewGen2022/storage-service/blob/main/app_preview/photo_1.jpg)
+![app preview](https://github.com/NewGen2022/storage-service/blob/main/app_preview/photo_2.jpg)
+![app preview](https://github.com/NewGen2022/storage-service/blob/main/app_preview/photo_3.jpg)
+![app preview](https://github.com/NewGen2022/storage-service/blob/main/app_preview/photo_4.jpg)
+![app preview](https://github.com/NewGen2022/storage-service/blob/main/app_preview/photo_5.jpg)
+![app preview](https://github.com/NewGen2022/storage-service/blob/main/app_preview/photo_6.jpg)
+![app preview](https://github.com/NewGen2022/storage-service/blob/main/app_preview/photo_7.jpg)
+![app preview](https://github.com/NewGen2022/storage-service/blob/main/app_preview/photo_8.jpg)
+![app preview](https://github.com/NewGen2022/storage-service/blob/main/app_preview/photo_9.jpg)
 
