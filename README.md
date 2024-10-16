@@ -29,7 +29,6 @@ The assignment was to create a stripped down version of Google Drive using Expre
 - Access Control: Set expiration dates for shared directories and files to manage access effectively.
 
 - User Feedback: Provide clear feedback through popup alerts and messages.
-- 
 
 - Registration: Enable new user sign-up with PostgreSQL, managed through Prisma ORM.
 - Authentication: Secure user sessions using PassportJS and Prisma Session Store.
